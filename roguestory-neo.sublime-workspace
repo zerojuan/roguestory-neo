@@ -135,25 +135,33 @@
 			"file": "server.js",
 			"settings":
 			{
-				"buffer_size": 1082,
+				"buffer_size": 3469,
 				"line_ending": "Windows",
 				"name": "server.js"
 			}
 		},
 		{
-			"file": "app/index.html",
+			"file": "/C/Users/julius/Documents/workspace-node/roguestory-neo/models/user.js",
 			"settings":
 			{
-				"buffer_size": 741,
-				"line_ending": "Unix"
+				"buffer_size": 191,
+				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "app/js/services.js",
+			"file": "/C/Users/julius/Documents/workspace-node/roguestory-neo/start.bat",
 			"settings":
 			{
-				"buffer_size": 183,
-				"line_ending": "Unix"
+				"buffer_size": 167,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Users/julius/Documents/workspace-node/roguestory-neo/app/index.html",
+			"settings":
+			{
+				"buffer_size": 1565,
+				"line_ending": "Windows"
 			}
 		}
 	],
@@ -193,6 +201,14 @@
 	},
 	"file_history":
 	[
+		"/C/Users/Julius/Documents/workspace-node/roguestory-neo/.npmignore",
+		"/C/Users/julius/Documents/workspace-node/roguestory-neo/.gitignore",
+		"/C/Users/julius/Documents/workspace-node/roguestory-neo/package.json",
+		"/C/Users/Julius/Documents/workspace-node/roguestory-neo/app/js/services.js",
+		"/C/Users/Julius/Documents/new-julius.csr",
+		"/C/Users/Julius/Documents/csr.pem",
+		"/C/Users/Julius/Documents/workspace-node/roguestory-neo/app/index.html",
+		"/C/Users/Julius/Documents/ssl.crt",
 		"/C/Users/julius/Documents/projects/roguestory-neo/package.json",
 		"/C/Users/julius/Documents/projects/manila-transit/client-prod/index.html",
 		"/C/Users/julius/Documents/projects/manila-transit/app/css/app.less",
@@ -332,50 +348,54 @@
 					"file": "server.js",
 					"settings":
 					{
-						"buffer_size": 1082,
+						"buffer_size": 3469,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								698,
-								698
+								629,
+								629
 							]
 						],
 						"settings":
 						{
 							"auto_name": "server.js",
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
 							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 182.0,
+						"translation.y": 60.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "app/index.html",
+					"file": "/C/Users/julius/Documents/workspace-node/roguestory-neo/models/user.js",
 					"settings":
 					{
-						"buffer_size": 741,
+						"buffer_size": 191,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								302,
-								302
+								191,
+								191
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/HTML/HTML.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -385,26 +405,60 @@
 				},
 				{
 					"buffer": 2,
-					"file": "app/js/services.js",
+					"file": "/C/Users/julius/Documents/workspace-node/roguestory-neo/start.bat",
 					"settings":
 					{
-						"buffer_size": 183,
+						"buffer_size": 167,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								179,
-								179
+								167,
+								167
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/Batch File/Batch File.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/C/Users/julius/Documents/workspace-node/roguestory-neo/app/index.html",
+					"settings":
+					{
+						"buffer_size": 1565,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1564,
+								1564
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 180.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -443,6 +497,10 @@
 		]
 	},
 	"menu_visible": true,
+	"output.sftp":
+	{
+		"height": 100.0
+	},
 	"replace":
 	{
 		"height": 70.0

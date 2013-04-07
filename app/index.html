@@ -5,30 +5,8 @@
   <title>Rogue Story</title>
   <link rel="stylesheet" href="css/app.css"/>
 </head>
-<body class="login-test waiting-for-angular">  
-  <div id="login-holder">
-    <div id="loginbox">
-      <div id="login-inner" ng:controller="LoginController">
-        <form ng-submit="submit()">
-          <table border="0" cellpadding="0" cellspacing="0">
-            <tr>
-              <th>Username</th>
-              <td><input type="text" class="login-inp" ng-model="username"/></td>
-            </tr>
-            <tr>
-              <th>Password</th>
-              <td><input type="password" class="login-inp" ng-model="password"/></td>
-            </tr>
-            <tr>
-              <th></th>
-              <td><input type="submit" class="submit-login"/></td>
-            </tr>
-          </table>
-        </form>
-      </div>
-      <div class="clear"></div>
-    </div>
-  </div>
+<body>  
+  
   <div id="content">
     <div ng-view></div>
   </div>

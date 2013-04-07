@@ -1,60 +1,50 @@
 var application_root = __dirname,
 	qs = require("querystring"),
 	express =  require("express"),
-	request = require("request"),
+	request = require("request"),	
 	less = require("less-middleware"),	
+	mongoose = require('mongoose'),
 	fs = require("fs");
+
+var RedisStore = require("connect-redis")(express);
+
+var User = require("./models/user");
 
 var passport = require("passport"),
 	LocalStrategy = require("passport-local").Strategy;
 
-var localUsers = [
-	{id: 1, username: 'Julius', password: 'testacool'},
-	{id: 2, username: 'Albert', password: 'testacool1'},
-	{id: 3, username: 'Tester', password: 'tester'}
-];
+var db = mongoose.connect(process.env.MONGO_URI);
 
 passport.use(new LocalStrategy(
   function(username, password, done) {
   	console.log('Authenticating', username, password);
-  	var user = null;
-  	for(var i in localUsers){
-  		if(username == localUsers[i].username){
-  			user = localUsers[i];
+
+  	User.findOne({username: username}, function(err, user){
+  		if(err){
+  			return done(null, false, {message: err.message});
   		}
-  	}
+  		if(!user){
+  			return done(null, false, {message : 'Username not found'});
+  		}
+  		if(password != user.password){
+  			return done(null, false, {message : 'Incorrect password'});
+  		}
 
-  	if(!user){
-  		return done(null, false, {message : 'Username not found'});
-  	}
-
-  	if(username != user.username){
-  		return done(null, false, { message : 'Incorrect username.'});
-  	}
-
-  	if(password != user.password){
-  		return done(null, false, { message : 'Incorrect password.'});
-  	}
-  	return done(null, user);    
+  		return done(null, user);
+  	});   
   }
 ));
 
 passport.serializeUser(function(user, done){
-	console.log('Serializing User: ' + user.id);
-	done(null, user.id);
+	console.log('Serializing User: ' + user._id);
+	done(null, user._id);
 });
 
 passport.deserializeUser(function(id, done){
-	console.log('Deserializing User: ', id);
-	var user = null;
-	for(var i in localUsers){
-  		if(id == localUsers[i].id){
-  			user = localUsers[i];
-  			return done(null, user);
-  		}
-  	}	
-	
-	return done(null, id);
+	console.log('Deserializing User: ', id);	
+	User.findById(id, function(err, user){
+		return done(err, user);
+	});			
 });
 
 var app = express();
@@ -64,7 +54,11 @@ app.configure(function(){
 	app.use(express.errorHandler({dumpException : true, showStack : true}));
 	app.use(express.bodyParser());
 	app.use(express.cookieParser());
-	app.use(express.session({ secret: 'keyboard cat' }));
+	app.use(express.session({ store: new RedisStore({
+		host : process.env.REDIS_HOST,
+		port : process.env.REDIS_PORT,
+		pass : process.env.REDIS_PASS
+	}), secret: 'super secret key' }));
 	app.use(passport.initialize());
   	app.use(passport.session());
   	app.use(express.methodOverride());
@@ -96,6 +90,7 @@ app.get('/home', function(req,res){
 		console.log('User is logged in');
 		return res.send({message: 'User is in!', user: req.user});
 	}else{
+		console.log('User is not logged in ');
 		return res.send(401);
 	}
 });
@@ -108,5 +103,22 @@ app.post('/auth/logout', function(req, res){
 	});
 });
 
-app.listen(process.env.PORT || 3002);
-console.log('Listening to port 3002');
+// var options = {
+// 	key : fs.readFileSync('./private.key'),
+// 	cert : fs.readFileSync('./ssl.crt')
+// };
+
+// https.createServer(options, app).listen(process.env.PORT || 3002, function(err){
+// 	if(err){
+// 		console.log("An error occured ", err);
+// 		return err;
+// 	}
+// 	console.log('Listening to port ' + (process.env.PORT || 3002));	
+// });
+app.listen(process.env.PORT || 3002, function(err){
+	if(err){
+		console.log("An error occured ", err);
+		return err;
+	}
+	console.log('Listening to port ' + (process.env.PORT || 3002));
+});
