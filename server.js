@@ -13,7 +13,11 @@ var User = require("./models/user");
 var passport = require("passport"),
 	LocalStrategy = require("passport-local").Strategy;
 
-var db = mongoose.connect(process.env.MONGO_URI);
+var options = {
+	server : {pooSize: 5}
+};
+options.server.socketOptions = {keepAlive: 1};
+var db = mongoose.connect(process.env.MONGO_URI, options);
 
 passport.use(new LocalStrategy(
   function(username, password, done) {
@@ -50,8 +54,11 @@ passport.deserializeUser(function(id, done){
 var app = express();
 
 app.configure(function(){
-	app.use(express.static(__dirname+"/app"));
-	app.use(express.errorHandler({dumpException : true, showStack : true}));
+	app.use(less({
+		src : __dirname + '/app',
+		compress : true
+	}));
+	app.use(express.static(__dirname+"/app"));	
 	app.use(express.bodyParser());
 	app.use(express.cookieParser());
 	app.use(express.session({ store: new RedisStore({
@@ -62,20 +69,28 @@ app.configure(function(){
 	app.use(passport.initialize());
   	app.use(passport.session());
   	app.use(express.methodOverride());
-	app.use(app.router);
-	app.use(less({
-		src : __dirname + '/app',
-		compress : true
-	}));
-	
+	app.use(app.router);	
+	app.use(express.errorHandler({dumpException : true, showStack : true}));
+	app.use(function(err, req, res, next){
+		console.log(err.stack);
+		res.send(500, 'Something broke!');
+	});
 });
 
 //SETUP API
-app.post('/auth/login', passport.authenticate('local'), function(req, res){
-	return res.send({
-		message : 'Logged In',
-		alive : true
-	});
+app.post('/auth/login', function(req, res, next){
+	passport.authenticate('local', function(err, user, info){
+		if(err){ console.log('Error Occured'); return next(err); }
+		if(!user) { return res.send({error: true, message: info.message})};
+		req.logIn(user, function(err){
+			if(err){return next(err);}
+			return res.send({
+				message : 'Logged In',
+				alive : true,
+				user : user
+			});	
+		});
+	})(req, res,next);	
 });
 
 app.get('/secret', passport.authenticate('local'), function(req, res){
@@ -91,7 +106,7 @@ app.get('/home', function(req,res){
 		return res.send({message: 'User is in!', user: req.user});
 	}else{
 		console.log('User is not logged in ');
-		return res.send(401);
+		return res.send(401, 'User is not logged in');
 	}
 });
 

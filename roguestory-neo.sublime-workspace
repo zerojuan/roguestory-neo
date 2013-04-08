@@ -135,7 +135,7 @@
 			"file": "server.js",
 			"settings":
 			{
-				"buffer_size": 3469,
+				"buffer_size": 3095,
 				"line_ending": "Windows",
 				"name": "server.js"
 			}
@@ -144,7 +144,7 @@
 			"file": "/C/Users/julius/Documents/workspace-node/roguestory-neo/models/user.js",
 			"settings":
 			{
-				"buffer_size": 191,
+				"buffer_size": 190,
 				"line_ending": "Windows"
 			}
 		},
@@ -152,7 +152,7 @@
 			"file": "/C/Users/julius/Documents/workspace-node/roguestory-neo/start.bat",
 			"settings":
 			{
-				"buffer_size": 167,
+				"buffer_size": 236,
 				"line_ending": "Windows"
 			}
 		},
@@ -160,7 +160,31 @@
 			"file": "/C/Users/julius/Documents/workspace-node/roguestory-neo/app/index.html",
 			"settings":
 			{
-				"buffer_size": 1565,
+				"buffer_size": 793,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Users/julius/Documents/workspace-node/roguestory-neo/app/partials/home.html",
+			"settings":
+			{
+				"buffer_size": 87,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Users/julius/Documents/workspace-node/roguestory-neo/app/js/controllers.js",
+			"settings":
+			{
+				"buffer_size": 1079,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Users/julius/Documents/workspace-node/roguestory-neo/app/js/app.js",
+			"settings":
+			{
+				"buffer_size": 667,
 				"line_ending": "Windows"
 			}
 		}
@@ -168,9 +192,13 @@
 	"build_system": "",
 	"command_palette":
 	{
-		"height": 392.0,
+		"height": 285.0,
 		"selected_items":
 		[
+			[
+				"todo",
+				"Show TODOs: Open files only"
+			],
 			[
 				"Package Control: in",
 				"Package Control: Install Package"
@@ -184,7 +212,7 @@
 				"Gist: Open Gist"
 			]
 		],
-		"width": 512.0
+		"width": 522.0
 	},
 	"console":
 	{
@@ -201,6 +229,12 @@
 	},
 	"file_history":
 	[
+		"/C/Users/Julius/Documents/workspace-node/roguestory-neo/app/partials/login.html",
+		"/C/Users/julius/Documents/workspace-node/roguestory-neo/app/js/directives.js",
+		"/C/Users/julius/Documents/workspace-node/roguestory-neo/app/js/services.js",
+		"/C/Users/julius/Documents/workspace-node/roguestory-neo/app/js/filters.js",
+		"/C/Users/julius/Documents/workspace-node/roguestory-neo/node_modules/connect-redis/lib/connect-redis.js",
+		"/C/Users/julius/Documents/workspace-node/roguestory-neo/app/css/app.css",
 		"/C/Users/Julius/Documents/workspace-node/roguestory-neo/.npmignore",
 		"/C/Users/julius/Documents/workspace-node/roguestory-neo/.gitignore",
 		"/C/Users/julius/Documents/workspace-node/roguestory-neo/package.json",
@@ -340,7 +374,6 @@
 	"groups":
 	[
 		{
-			"selected": 0,
 			"sheets":
 			[
 				{
@@ -348,15 +381,15 @@
 					"file": "server.js",
 					"settings":
 					{
-						"buffer_size": 3469,
+						"buffer_size": 3095,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								629,
-								629
+								1160,
+								1160
 							]
 						],
 						"settings":
@@ -369,7 +402,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 60.0,
+						"translation.y": 480.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -379,15 +412,15 @@
 					"file": "/C/Users/julius/Documents/workspace-node/roguestory-neo/models/user.js",
 					"settings":
 					{
-						"buffer_size": 191,
+						"buffer_size": 190,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								191,
-								191
+								136,
+								136
 							]
 						],
 						"settings":
@@ -408,15 +441,15 @@
 					"file": "/C/Users/julius/Documents/workspace-node/roguestory-neo/start.bat",
 					"settings":
 					{
-						"buffer_size": 167,
+						"buffer_size": 236,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								167,
-								167
+								191,
+								191
 							]
 						],
 						"settings":
@@ -437,15 +470,15 @@
 					"file": "/C/Users/julius/Documents/workspace-node/roguestory-neo/app/index.html",
 					"settings":
 					{
-						"buffer_size": 1565,
+						"buffer_size": 793,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1564,
-								1564
+								168,
+								168
 							]
 						],
 						"settings":
@@ -458,7 +491,95 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 180.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/C/Users/julius/Documents/workspace-node/roguestory-neo/app/partials/home.html",
+					"settings":
+					{
+						"buffer_size": 87,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								87,
+								87
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/HTML/HTML.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "/C/Users/julius/Documents/workspace-node/roguestory-neo/app/js/controllers.js",
+					"settings":
+					{
+						"buffer_size": 1079,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								348,
+								348
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 60.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "/C/Users/julius/Documents/workspace-node/roguestory-neo/app/js/app.js",
+					"settings":
+					{
+						"buffer_size": 667,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								667,
+								667
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -497,6 +618,10 @@
 		]
 	},
 	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 132.0
+	},
 	"output.sftp":
 	{
 		"height": 100.0
