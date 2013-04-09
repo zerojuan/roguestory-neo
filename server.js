@@ -14,7 +14,7 @@ var passport = require("passport"),
 	LocalStrategy = require("passport-local").Strategy;
 
 var options = {
-	server : {pooSize: 5}
+	server : {poolSize: 5}
 };
 options.server.socketOptions = {keepAlive: 1};
 var db = mongoose.connect(process.env.MONGO_URI, options);
@@ -53,14 +53,15 @@ passport.deserializeUser(function(id, done){
 
 var app = express();
 
+var root = (app.settings.env == 'production') ? '/client-prod' : '/app';
+
 app.configure(function(){
 	app.use(less({
-		src : __dirname + '/app',
+		src : __dirname + root,
 		compress : true
-	}));
-	app.use(express.static(__dirname+"/app"));	
+	}));	
 	app.use(express.bodyParser());
-	app.use(express.cookieParser());
+	app.use(express.cookieParser());	
 	app.use(express.session({ store: new RedisStore({
 		host : process.env.REDIS_HOST,
 		port : process.env.REDIS_PORT,
@@ -70,6 +71,7 @@ app.configure(function(){
   	app.use(passport.session());
   	app.use(express.methodOverride());
 	app.use(app.router);	
+	app.use(express.static(__dirname+root));
 	app.use(express.errorHandler({dumpException : true, showStack : true}));
 	app.use(function(err, req, res, next){
 		console.log(err.stack);
@@ -78,6 +80,21 @@ app.configure(function(){
 });
 
 //SETUP API
+var packageJSON = JSON.parse(fs.readFileSync(__dirname + '/package.json'));
+
+app.get('/', function(req, res, next){	
+	fs.readFile(__dirname+root+'/index.html', 'utf8', function(err, file) {		
+	    if (err) {
+	      res.send(500);
+	      return next();
+	    }	    
+
+	    res.writeHead(200, {'Content-Type' : 'text/html'});
+	    file = file.replace(/%VERSION%/g, packageJSON.version);	    
+	    res.end(file);	    
+	});
+});
+
 app.post('/auth/login', function(req, res, next){
 	passport.authenticate('local', function(err, user, info){
 		if(err){ console.log('Error Occured'); return next(err); }
@@ -117,6 +134,7 @@ app.post('/auth/logout', function(req, res){
 		alive : false
 	});
 });
+
 
 // var options = {
 // 	key : fs.readFileSync('./private.key'),

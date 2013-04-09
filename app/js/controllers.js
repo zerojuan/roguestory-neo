@@ -50,11 +50,3 @@ function HomeController($scope, $http, $location, authService, CommonAppState){
 	}
 }
 HomeController.$inject = ['$scope', '$http', '$location', 'authService', 'CommonAppState'];
-
-function MyCtrl1() {}
-MyCtrl1.$inject = [];
-
-
-function MyCtrl2() {
-}
-MyCtrl2.$inject = [];

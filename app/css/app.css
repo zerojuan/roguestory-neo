@@ -1,4 +1,5 @@
-body{overflow:hidden;}
-.hud{z-index:3;position:absolute;}
+body{overflow:hidden;font-family:'Anonymous Pro',sans-serif;}
+.hud{position:absolute;}
 #content{position:absolute;}
-canvas{background:#ccc;display:block;}
+#version{position:absolute;right:0px;}
+canvas{background:#ccc;display:block;z-index:-1;}

@@ -7,6 +7,7 @@ build.xml
 .settings
 .idea/*
 /node_modules
+/client-prod
 
 *.sublime-project 
 *.sublime-workspace
