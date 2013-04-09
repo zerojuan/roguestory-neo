@@ -39,13 +39,11 @@ passport.use(new LocalStrategy(
   }
 ));
 
-passport.serializeUser(function(user, done){
-	console.log('Serializing User: ' + user._id);
+passport.serializeUser(function(user, done){	
 	done(null, user._id);
 });
 
-passport.deserializeUser(function(id, done){
-	console.log('Deserializing User: ', id);	
+passport.deserializeUser(function(id, done){	
 	User.findById(id, function(err, user){
 		return done(err, user);
 	});			
@@ -135,19 +133,6 @@ app.post('/auth/logout', function(req, res){
 	});
 });
 
-
-// var options = {
-// 	key : fs.readFileSync('./private.key'),
-// 	cert : fs.readFileSync('./ssl.crt')
-// };
-
-// https.createServer(options, app).listen(process.env.PORT || 3002, function(err){
-// 	if(err){
-// 		console.log("An error occured ", err);
-// 		return err;
-// 	}
-// 	console.log('Listening to port ' + (process.env.PORT || 3002));	
-// });
 app.listen(process.env.PORT || 3002, function(err){
 	if(err){
 		console.log("An error occured ", err);

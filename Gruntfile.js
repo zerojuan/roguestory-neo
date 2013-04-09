@@ -40,12 +40,16 @@ module.exports = function(grunt){
 				separator : ';',
 				src : [					
 					'app/lib/easel-0.6.js',
+					'app/lib/preloadjs-0.3.js',
+					'app/lib/tween-0.4.js',
 					'app/lib/http-auth-interceptor.js',
+					'app/js/game/base-board.js',
 					'app/js/app.js',
 					'app/js/services.js',
-					'app/js/controllers.js',
+					'app/js/controllers/home.js',
+					'app/js/controllers/login.js',
 					'app/js/filters.js',
-					'app/js/directives.js'
+					'app/js/directives/game.js'					
 				],
 				dest : 'client-prod/app.js'
 			}

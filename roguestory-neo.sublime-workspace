@@ -132,27 +132,18 @@
 	"buffers":
 	[
 		{
-			"file": "server.js",
+			"file": "/C/Users/julius/Documents/workspace-node/roguestory-neo/app/js/directives/game.js",
 			"settings":
 			{
-				"buffer_size": 3095,
-				"line_ending": "Windows",
-				"name": "server.js"
-			}
-		},
-		{
-			"file": "/C/Users/julius/Documents/workspace-node/roguestory-neo/models/user.js",
-			"settings":
-			{
-				"buffer_size": 190,
+				"buffer_size": 2050,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "/C/Users/julius/Documents/workspace-node/roguestory-neo/start.bat",
+			"file": "/C/Users/julius/Documents/workspace-node/roguestory-neo/app/js/game/base-board.js",
 			"settings":
 			{
-				"buffer_size": 236,
+				"buffer_size": 1360,
 				"line_ending": "Windows"
 			}
 		},
@@ -160,31 +151,15 @@
 			"file": "/C/Users/julius/Documents/workspace-node/roguestory-neo/app/index.html",
 			"settings":
 			{
-				"buffer_size": 793,
+				"buffer_size": 1679,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "/C/Users/julius/Documents/workspace-node/roguestory-neo/app/partials/home.html",
+			"file": "/C/Users/julius/Documents/workspace-node/roguestory-neo/app/css/app.less",
 			"settings":
 			{
-				"buffer_size": 87,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/C/Users/julius/Documents/workspace-node/roguestory-neo/app/js/controllers.js",
-			"settings":
-			{
-				"buffer_size": 1079,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/C/Users/julius/Documents/workspace-node/roguestory-neo/app/js/app.js",
-			"settings":
-			{
-				"buffer_size": 667,
+				"buffer_size": 247,
 				"line_ending": "Windows"
 			}
 		}
@@ -197,7 +172,7 @@
 		[
 			[
 				"todo",
-				"Show TODOs: Open files only"
+				"Show TODOs: Project and open files"
 			],
 			[
 				"Package Control: in",
@@ -229,14 +204,34 @@
 	},
 	"file_history":
 	[
-		"/C/Users/Julius/Documents/workspace-node/roguestory-neo/app/partials/login.html",
-		"/C/Users/julius/Documents/workspace-node/roguestory-neo/app/js/directives.js",
+		"/C/Users/julius/Documents/workspace-node/roguestory-neo/Gruntfile.js",
+		"/C/Users/Julius/Documents/workspace-node/roguestory-neo/app/lib/tween-0.4.js",
+		"/C/Users/Julius/Documents/workspace-node/roguestory-neo/app/lib/preloadjs-0.3.js",
+		"/C/Users/Julius/Documents/workspace-node/roguestory-neo/server.js",
+		"/C/Users/julius/Documents/workspace-node/roguestory-neo/models/user.js",
+		"/C/Users/julius/Documents/workspace-node/roguestory-neo/start.bat",
+		"/C/Users/julius/Documents/workspace-node/roguestory-neo/app/index.html",
+		"/C/Users/julius/Documents/workspace-node/roguestory-neo/app/partials/home.html",
+		"/C/Users/julius/Documents/workspace-node/roguestory-neo/app/js/controllers/login.js",
+		"/C/Users/julius/Documents/workspace-node/roguestory-neo/app/js/controllers/home.js",
+		"/C/Users/julius/Documents/workspace-node/roguestory-neo/app/js/app.js",
+		"/C/Users/julius/Documents/workspace-node/roguestory-neo/app/partials/login.html",
+		"/C/Users/julius/Documents/workspace-node/roguestory-neo/app/lib/easel-0.6.js",
 		"/C/Users/julius/Documents/workspace-node/roguestory-neo/app/js/services.js",
+		"/C/Users/Julius/Documents/workspace-node/roguestory-neo/app/css/app.less",
 		"/C/Users/julius/Documents/workspace-node/roguestory-neo/app/js/filters.js",
-		"/C/Users/julius/Documents/workspace-node/roguestory-neo/node_modules/connect-redis/lib/connect-redis.js",
-		"/C/Users/julius/Documents/workspace-node/roguestory-neo/app/css/app.css",
-		"/C/Users/Julius/Documents/workspace-node/roguestory-neo/.npmignore",
 		"/C/Users/julius/Documents/workspace-node/roguestory-neo/.gitignore",
+		"/C/Users/Julius/AppData/Roaming/Sublime Text 2/Packages/User/Preferences.sublime-settings",
+		"/C/Users/julius/Documents/workspace-node/roguestory-neo/app/js/game/base-board.js",
+		"/C/Users/julius/Documents/workspace-node/roguestory-neo/app/js/controllers.js",
+		"/C/Users/julius/Documents/workspace-node/roguestory-neo/app/js/directives.js",
+		"/C/Users/julius/Documents/workspace-node/roguestory-neo/client-prod/index.html",
+		"/C/Users/julius/Documents/workspace-node/roguestory-neo/app/css/.gitignore",
+		"/C/Users/Julius/Documents/workspace-node/roguestory-neo/app/css/reset.less",
+		"/C/Users/julius/Documents/workspace-node/roguestory-neo/app/css/app.css",
+		"/C/Users/Julius/Documents/workspace-node/roguestory-neo/app/partials/login.html",
+		"/C/Users/julius/Documents/workspace-node/roguestory-neo/node_modules/connect-redis/lib/connect-redis.js",
+		"/C/Users/Julius/Documents/workspace-node/roguestory-neo/.npmignore",
 		"/C/Users/julius/Documents/workspace-node/roguestory-neo/package.json",
 		"/C/Users/Julius/Documents/workspace-node/roguestory-neo/app/js/services.js",
 		"/C/Users/Julius/Documents/new-julius.csr",
@@ -316,6 +311,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"13",
 			"process",
 			"provider",
 			"angular",
@@ -374,27 +370,58 @@
 	"groups":
 	[
 		{
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "server.js",
+					"file": "/C/Users/julius/Documents/workspace-node/roguestory-neo/app/js/directives/game.js",
 					"settings":
 					{
-						"buffer_size": 3095,
+						"buffer_size": 2050,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1160,
-								1160
+								860,
+								860
 							]
 						],
 						"settings":
 						{
-							"auto_name": "server.js",
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 240.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/C/Users/julius/Documents/workspace-node/roguestory-neo/app/js/game/base-board.js",
+					"settings":
+					{
+						"buffer_size": 1360,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								779,
+								779
+							]
+						],
+						"settings":
+						{
 							"incomplete_sync": null,
 							"remote_loading": false,
 							"synced": false,
@@ -402,83 +429,25 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 480.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "/C/Users/julius/Documents/workspace-node/roguestory-neo/models/user.js",
-					"settings":
-					{
-						"buffer_size": 190,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								136,
-								136
-							]
-						],
-						"settings":
-						{
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 420.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"file": "/C/Users/julius/Documents/workspace-node/roguestory-neo/start.bat",
-					"settings":
-					{
-						"buffer_size": 236,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								191,
-								191
-							]
-						],
-						"settings":
-						{
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/Batch File/Batch File.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 3,
 					"file": "/C/Users/julius/Documents/workspace-node/roguestory-neo/app/index.html",
 					"settings":
 					{
-						"buffer_size": 793,
+						"buffer_size": 1679,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								168,
-								168
+								369,
+								369
 							]
 						],
 						"settings":
@@ -491,25 +460,25 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 120.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 4,
-					"file": "/C/Users/julius/Documents/workspace-node/roguestory-neo/app/partials/home.html",
+					"buffer": 3,
+					"file": "/C/Users/julius/Documents/workspace-node/roguestory-neo/app/css/app.less",
 					"settings":
 					{
-						"buffer_size": 87,
+						"buffer_size": 247,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								87,
-								87
+								211,
+								211
 							]
 						],
 						"settings":
@@ -517,66 +486,7 @@
 							"incomplete_sync": null,
 							"remote_loading": false,
 							"synced": false,
-							"syntax": "Packages/HTML/HTML.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "/C/Users/julius/Documents/workspace-node/roguestory-neo/app/js/controllers.js",
-					"settings":
-					{
-						"buffer_size": 1079,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								348,
-								348
-							]
-						],
-						"settings":
-						{
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 60.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "/C/Users/julius/Documents/workspace-node/roguestory-neo/app/js/app.js",
-					"settings":
-					{
-						"buffer_size": 667,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								667,
-								667
-							]
-						],
-						"settings":
-						{
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+							"syntax": "Packages/LESS/LESS.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,

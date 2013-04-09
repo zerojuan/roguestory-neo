@@ -4,7 +4,7 @@
 
 
 angular.module('myApp.directives', ['http-auth-interceptor']).
-  directive('game', [function(version){
+  directive('game', [function(){
   	return {
   		restrict: 'E',
   		transclude : true,
