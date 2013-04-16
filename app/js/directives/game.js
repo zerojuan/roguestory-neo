@@ -11,7 +11,9 @@
       this.canvas = opts.canvas;
       this.stage = new createjs.Stage(this.canvas);
       this.base = opts.base;
+      this.map = opts.map;
       this.assets = [];
+      console.log(window.innerHeight, window.innerWidth);
       this.canvas.height = window.innerHeight;
       this.canvas.width = window.innerWidth;    
 
@@ -29,12 +31,11 @@
 
           if(item.type == createjs.PreloadJS.IMAGE){
             var bmp = new createjs.Bitmap(result);
-          }
-          console.log(result);
+          }          
           switch(id){
             case 'tileset' : 
-              console.log("Initialize?");
-              that.base = new opts.BaseBoard({tileSheet : result});
+              console.log("Initialize?");              
+              that.base = new opts.BaseBoard({tileSheet : result, map : that.map});
               break;
           }
         }
@@ -48,11 +49,17 @@
         that.stage.update(event);
       }  
 
+      this.updateMap = function(map){
+        this.map = map;
+        console.log("Updating map");
+        if(this.base){
+          this.base.updateMap(map);  
+        }
+        
+      }
+
       createjs.Ticker.addEventListener("tick", this.tick);
-
-
-
-      
+     
     }
 
     return PrivateGameModel;
@@ -66,15 +73,23 @@
       replace: true,
       template : '<canvas ng-transclude>Test'+
       '</canvas>',
+      scope : {
+        "map" : "=map"
+      },
       link : function(scope, elm, attrs){
 
         var _m = new GameModel({
           canvas : elm[0],
-          BaseBoard : BaseBoard
+          map : scope.map,
+          BaseBoard : BaseBoard          
         });
 
         elm.width(window.innerWidth);
         elm.height(window.innerHeight);
+
+        scope.$watch('map', function(newVal){
+          _m.updateMap(newVal);
+        });
       }
     }
   }]);

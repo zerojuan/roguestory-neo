@@ -4,12 +4,12 @@
 
 
 // Demonstrate how to register services
-// In this case it is a simple value service.
 angular.module('myApp.services', []).  
   factory('CommonAppState', ['$rootScope', function($rootScope){
-  	var commonAppService = {};
+  	var commonAppService = {};    
 
   	commonAppService.loggedInUser = null;
+    commonAppService.ValueMap = {};
 
   	commonAppService.prepForBroadcast = function(property, msg){
   		console.log('Saving Property: ', property, msg);

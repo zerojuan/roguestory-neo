@@ -10,7 +10,7 @@
 <body>  
   
   <div id="content">
-    <div ng-view></div>
+    <div ng-view ng-animate="{enter: 'view-enter', leave: 'view-leave'}" ></div>
   </div>
   
   <div id="version">Version %VERSION%</div>
@@ -27,8 +27,10 @@
   <script src="js/services.js"></script>  
   <script src="js/controllers/login.js"></script>
   <script src="js/controllers/home.js"></script>
+  <script src="js/controllers/dungeon.js"></script>
   <script src="js/filters.js"></script>
   <script src="js/directives/game.js"></script>
+
   <!--<!(endif)-->
   <!--(if target prod)>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>

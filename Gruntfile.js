@@ -10,6 +10,7 @@ module.exports = function(grunt){
 					{expand: true, flatten: true, cwd: 'app/css/', src: ['*.css'], dest: 'client-prod/css/', filter: 'isFile'}, // includes files in path
 	  		      	{expand: true, flatten: false, cwd: 'app/img/', src: ['**'], dest: 'client-prod/img/'}, // includes files in path and its subdirs
 	  		      	{expand: true, flatten: true, cwd: 'app/data/', src: ['**'], dest: 'client-prod/data/'}, // includes files in path and its subdirs
+	  		      	{expand: true, flatten: true, cwd: 'app/fonts/', src: ['**'], dest: 'client-prod/fonts/'},
 	  		      	{expand: true, flatten: true, cwd: 'app/partials/', src: ['**'], dest: 'client-prod/partials/'} // includes files in path and its subdirs
 				]
 			}

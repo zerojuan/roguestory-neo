@@ -115,14 +115,34 @@ app.get('/secret', passport.authenticate('local'), function(req, res){
 	}
 });
 
+
+var ValueMap = {};
+ValueMap['hero'] = 'A';
+ValueMap['tiny_grass'] = 'C';
+ValueMap['potion'] = 'D';
+ValueMap['wall'] = 'E';
+ValueMap['water'] = 'F';
+ValueMap['stone'] = 'G';
+ValueMap['wall_top'] = 'H';
+ValueMap['door_open'] = 'I';
+ValueMap['door_close'] = 'J';
+ValueMap['down_stairs'] = 'K';
+ValueMap['up_stairs'] = 'L';
+ValueMap['big_grass'] = 'M';
 app.get('/home', function(req,res){
 	if(req.user){
 		console.log('User is logged in');
-		return res.send({message: 'User is in!', user: req.user});
+		console.log('ValueMap:', ValueMap);
+		return res.send({message: 'User is in!', user: req.user, valueMap: ValueMap});
 	}else{
 		console.log('User is not logged in ');
 		return res.send(401, 'User is not logged in');
 	}
+});
+
+
+app.get('/valuemap', function(req, res){
+	return res.send(ValueMap);
 });
 
 app.post('/auth/logout', function(req, res){

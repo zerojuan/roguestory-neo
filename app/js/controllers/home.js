@@ -1,10 +1,14 @@
 'use strict';
 
 function HomeController($scope, $http, $location, authService, CommonAppState){
+	$scope.loggedIn = false;
 	$http.get('/home').success(function(data){
-		console.log(data);
+		$scope.loggedIn = true;
 		$scope.message = data.message;
 		$scope.user = data.user;
+		console.log('ValueMap: ', data);
+		CommonAppState.ValueMap = data.valueMap;
+		$http.defaults.headers.common['Auth-Token'] = 'my-token-so';
 		authService.loginConfirmed();
 	});
 

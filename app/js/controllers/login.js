@@ -3,8 +3,8 @@
 /* Controllers */
 
 function LoginController($scope, $http, $location, authService, CommonAppState){
-	$scope.username = 'tusongtupa';
-	$scope.password = 'testpass';
+	$scope.username = '';
+	$scope.password = '';
 	console.log('Login Controller');
 	$scope.submit = function(){
 		var data = {username: $scope.username, password: $scope.password};
@@ -18,9 +18,9 @@ function LoginController($scope, $http, $location, authService, CommonAppState){
 		});
 	};
 
-	if(CommonAppState.loggedInUser){
-		$location.path('/home');		
-	}
+	//if(CommonAppState.loggedInUser){
+	////	$location.path('/home');		
+	//}
 
 	$scope.$on('event:auth-loginConfirmed', function(){			
 		$location.path('/home');
