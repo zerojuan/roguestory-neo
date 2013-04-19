@@ -8,6 +8,9 @@ var application_root = __dirname,
 
 var RedisStore = require("connect-redis")(express);
 
+var GameRoute = require("./routes/game");
+var UserRoute = require("./routes/user");
+
 var User = require("./models/user");
 
 var passport = require("passport"),
@@ -116,42 +119,11 @@ app.get('/secret', passport.authenticate('local'), function(req, res){
 });
 
 
-var ValueMap = {};
-ValueMap['hero'] = 'A';
-ValueMap['tiny_grass'] = 'C';
-ValueMap['potion'] = 'D';
-ValueMap['wall'] = 'E';
-ValueMap['water'] = 'F';
-ValueMap['stone'] = 'G';
-ValueMap['wall_top'] = 'H';
-ValueMap['door_open'] = 'I';
-ValueMap['door_close'] = 'J';
-ValueMap['down_stairs'] = 'K';
-ValueMap['up_stairs'] = 'L';
-ValueMap['big_grass'] = 'M';
-app.get('/home', function(req,res){
-	if(req.user){
-		console.log('User is logged in');
-		console.log('ValueMap:', ValueMap);
-		return res.send({message: 'User is in!', user: req.user, valueMap: ValueMap});
-	}else{
-		console.log('User is not logged in ');
-		return res.send(401, 'User is not logged in');
-	}
-});
+app.get('/home', UserRoute.getHome);
 
+app.get('/dungeon', GameRoute.getDungeon);
 
-app.get('/valuemap', function(req, res){
-	return res.send(ValueMap);
-});
-
-app.post('/auth/logout', function(req, res){
-	req.logout();
-	return res.send({
-		message : 'Logged Out',
-		alive : false
-	});
-});
+app.post('/auth/logout', UserRoute.logout);
 
 app.listen(process.env.PORT || 3002, function(err){
 	if(err){

@@ -65,7 +65,7 @@
     return PrivateGameModel;
   }());
 
-  angular.module('myApp.directives', ['myApp.gameModule','http-auth-interceptor']).
+  angular.module('myApp.directives').
   directive('game', ['BaseBoard', function(BaseBoard){
     return {
       restrict: 'E',
