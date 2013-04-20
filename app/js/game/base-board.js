@@ -28,18 +28,31 @@
 				var img = this.tileSheet;
 				var ga = 0;
 				for(var x = 0; x < this.map.length; x++){
-						for(var y = 0; y < this.map[x].length; y++){
+						for(var y = 0; y < this.map[x].length; y++){							
 							var val = this.map[x][y];
+							if(val.val == '0'){
+								continue;
+							}
 							var t = val.tint;
 							ctx.font = '13pt Conv_roguestoryneo';
 							ctx.fillStyle = 'rgba('+t.r+','+t.g+','+t.b+',1)';
 							//ctx.fillRect(y * this.tileWidth, x * this.tileHeight, this.tileWidth, this.tileHeight);
-							ctx.globalAlpha = val.ga;
+							if(val.val != 'E' && val.val != '#'){
+								ctx.globalAlpha = val.ga;	
+							}else{
+								ctx.globalAlpha = 1;
+							}
+							
 							//ctx.fillStyle = 'rgba('+t.r+','+t.g+','+t .b+',1)';
 							//ctx.globalCompositeOperation = 'destination-atop';							
 							//ctx.drawImage(img, val.val * this.tileWidth, 0, this.tileWidth, this.tileHeight, 
 							//	y * this.tileWidth, x * this.tileHeight, this.tileWidth, this.tileHeight );						
-							ctx.fillText(val.val, y * this.tileWidth, x * this.tileHeight);
+							if(val.val == 'E' && this.map[x+1][y].val == 'E'){
+								ctx.fillText('H', y * this.tileWidth, x * this.tileHeight);
+							}else{
+								ctx.fillText(val.val, y * this.tileWidth, x * this.tileHeight);
+							}
+							
 							val.ga += 0.1;
 							if(val.ga > 1.0){
 								val.ga = 0;

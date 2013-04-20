@@ -135,7 +135,7 @@
 			"file": "/C/Users/julius/Documents/workspace-node/roguestory-neo/app/js/directives/game.js",
 			"settings":
 			{
-				"buffer_size": 2504,
+				"buffer_size": 2458,
 				"line_ending": "Windows"
 			}
 		},
@@ -143,8 +143,43 @@
 			"file": "/C/Users/julius/Documents/workspace-node/roguestory-neo/server.js",
 			"settings":
 			{
-				"buffer_size": 4638,
+				"buffer_size": 3491,
 				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "routes/game.js",
+			"settings":
+			{
+				"buffer_size": 211,
+				"line_ending": "Windows",
+				"name": "game.js"
+			}
+		},
+		{
+			"file": "routes/user.js",
+			"settings":
+			{
+				"buffer_size": 482,
+				"line_ending": "Windows",
+				"name": "user.js"
+			}
+		},
+		{
+			"file": "/C/Users/julius/Documents/workspace-node/roguestory-neo/rogueengine/dungeongenerator.js",
+			"settings":
+			{
+				"buffer_size": 717,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "rogueengine/valuemap.js",
+			"settings":
+			{
+				"buffer_size": 341,
+				"line_ending": "Windows",
+				"name": "valuemap.js"
 			}
 		},
 		{
@@ -208,6 +243,14 @@
 			"settings":
 			{
 				"buffer_size": 349,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Users/julius/Documents/workspace-node/roguestory-neo/app/js/app.js",
+			"settings":
+			{
+				"buffer_size": 560,
 				"line_ending": "Windows"
 			}
 		}
@@ -426,7 +469,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 4,
 			"sheets":
 			[
 				{
@@ -434,15 +477,15 @@
 					"file": "/C/Users/julius/Documents/workspace-node/roguestory-neo/app/js/directives/game.js",
 					"settings":
 					{
-						"buffer_size": 2504,
+						"buffer_size": 2458,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2112,
-								2112
+								691,
+								691
 							]
 						],
 						"settings":
@@ -455,7 +498,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1200.0,
+						"translation.y": 360.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -465,15 +508,15 @@
 					"file": "/C/Users/julius/Documents/workspace-node/roguestory-neo/server.js",
 					"settings":
 					{
-						"buffer_size": 4638,
+						"buffer_size": 3491,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4135,
-								4135
+								3491,
+								3491
 							]
 						],
 						"settings":
@@ -485,13 +528,126 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 2520.0,
+						"translation.y": 2100.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 2,
+					"file": "routes/game.js",
+					"settings":
+					{
+						"buffer_size": 211,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								211,
+								211
+							]
+						],
+						"settings":
+						{
+							"auto_name": "game.js",
+							"incomplete_sync": null,
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "routes/user.js",
+					"settings":
+					{
+						"buffer_size": 482,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								177,
+								177
+							]
+						],
+						"settings":
+						{
+							"auto_name": "user.js",
+							"incomplete_sync": null,
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/C/Users/julius/Documents/workspace-node/roguestory-neo/rogueengine/dungeongenerator.js",
+					"settings":
+					{
+						"buffer_size": 717,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								717,
+								717
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "rogueengine/valuemap.js",
+					"settings":
+					{
+						"buffer_size": 341,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								341,
+								341
+							]
+						],
+						"settings":
+						{
+							"auto_name": "valuemap.js",
+							"incomplete_sync": null,
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
 					"file": "/C/Users/julius/Documents/workspace-node/roguestory-neo/app/js/controllers/home.js",
 					"settings":
 					{
@@ -521,7 +677,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 3,
+					"buffer": 7,
 					"file": "/C/Users/julius/Documents/workspace-node/roguestory-neo/app/js/controllers/dungeon.js",
 					"settings":
 					{
@@ -545,13 +701,13 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 60.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 4,
+					"buffer": 8,
 					"file": "/C/Users/julius/Documents/workspace-node/roguestory-neo/app/js/services.js",
 					"settings":
 					{
@@ -582,7 +738,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 5,
+					"buffer": 9,
 					"file": "/C/Users/julius/Documents/workspace-node/roguestory-neo/app/index.html",
 					"settings":
 					{
@@ -593,8 +749,8 @@
 						"selection":
 						[
 							[
-								362,
-								362
+								1208,
+								1208
 							]
 						],
 						"settings":
@@ -613,7 +769,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 6,
+					"buffer": 10,
 					"file": "/C/Users/julius/Documents/workspace-node/roguestory-neo/app/css/app.less",
 					"settings":
 					{
@@ -643,7 +799,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 7,
+					"buffer": 11,
 					"file": "/C/Users/julius/Documents/workspace-node/roguestory-neo/app/lib/angular/angular.js",
 					"settings":
 					{
@@ -674,7 +830,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 8,
+					"buffer": 12,
 					"file": "/C/Users/julius/Documents/workspace-node/roguestory-neo/app/js/controllers/login.js",
 					"settings":
 					{
@@ -704,7 +860,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 9,
+					"buffer": 13,
 					"file": "/C/Users/julius/Documents/workspace-node/roguestory-neo/app/partials/home.html",
 					"settings":
 					{
@@ -725,6 +881,35 @@
 							"remote_loading": false,
 							"synced": false,
 							"syntax": "Packages/HTML/HTML.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 14,
+					"file": "/C/Users/julius/Documents/workspace-node/roguestory-neo/app/js/app.js",
+					"settings":
+					{
+						"buffer_size": 560,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								97,
+								97
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
