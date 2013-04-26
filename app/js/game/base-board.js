@@ -1,5 +1,12 @@
 (function(){
 	'use strict';
+
+	function _getColorFromMaterial(material){
+		switch(material){			
+			case 'STONE' : return 'rgba(195,227,179,1)';
+			case 'EARTH' : return 'rgba(233,233,176,1)';
+		}
+	}
 	
 	angular.module('myApp.gameModule', [])
 		.factory('BaseBoard', [function() {
@@ -35,10 +42,11 @@
 							}
 							var t = val.tint;
 							ctx.font = '13pt Conv_roguestoryneo';
-							ctx.fillStyle = 'rgba('+t.r+','+t.g+','+t.b+',1)';
+
+							ctx.fillStyle = _getColorFromMaterial(val.material);
 							//ctx.fillRect(y * this.tileWidth, x * this.tileHeight, this.tileWidth, this.tileHeight);
-							if(val.val != 'E' && val.val != '#'){
-								ctx.globalAlpha = val.ga;	
+							if(val.pulse){
+								ctx.globalAlpha = val.pulse;
 							}else{
 								ctx.globalAlpha = 1;
 							}
@@ -53,9 +61,9 @@
 								ctx.fillText(val.val, y * this.tileWidth, x * this.tileHeight);
 							}
 							
-							val.ga += 0.1;
-							if(val.ga > 1.0){
-								val.ga = 0;
+							val.pulse += 0.1;
+							if(val.pulse > 1.0){
+								val.pulse = 0;
 							}
 						}
 				}

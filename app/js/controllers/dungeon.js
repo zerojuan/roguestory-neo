@@ -3,6 +3,32 @@ function DungeonController($scope, $http, $location, authService, CommonAppState
 	//get the map
 	$scope.map = [];
 	
+	var _renderEntrance = function(data, map){
+		for(var i  = data.x; i < data.x+data.width; i++){
+			for(var j = data.y; j < data.y+data.height; j++){
+				var val = {};
+				if((i==data.x || i == data.x+data.width-1) || 
+					(j==data.y || j==data.y+data.height-1)){
+					val = {
+						val : CommonAppState.ValueMap['wall'],
+						material: 'STONE'						
+					}
+				}else{
+					val = {
+						val : '.',
+						material: 'EARTH'
+					}
+				}
+				map[j][i] = val;
+			}			
+		}
+		var entrance = {
+			val : CommonAppState.ValueMap['up_stairs'],
+			material : 'STONE'
+		};
+		map[data.entrance.y][data.entrance.x] = entrance;
+	}
+
 	var _renderSquareRoom = function(data, map){
 		for(var i = data.x; i < data.x+data.width; i++){
 			for(var j = data.y; j < data.y+data.height; j++){
@@ -11,35 +37,18 @@ function DungeonController($scope, $http, $location, authService, CommonAppState
 				if(i == data.x || i == data.x+data.width-1){
 					val = {
 						val : CommonAppState.ValueMap['wall'],
-						ga : Math.random(),
-						tint : {
-							r : 255,
-							g : 255,
-							b : 255,
-							t : 0.6
-						}
+						material: 'STONE'
 					}
 				}else if(j == data.y || j==data.y+data.height-1){
 					val = {
 						val : CommonAppState.ValueMap['wall'],
-						ga : Math.random(),
-						tint : {
-							r : 255,
-							g : 255,
-							b : 255,
-							t : 0.6
-						}
+						material: 'STONE'
 					}
 				}else{
 					val = {
-						val : 'X',
-						ga : Math.random(),
-						tint : {
-							r : 255,
-							g : 255,
-							b : 255,
-							t : 0.6
-						}
+						val : '.',
+						material: 'EARTH',
+						pulse : Math.random()						
 					}
 				}
 				map[j][i] = val;				
@@ -53,14 +62,7 @@ function DungeonController($scope, $http, $location, authService, CommonAppState
 			$scope.map[y] = [];
 			for(var x = 0; x < data.width; x++){
 				$scope.map[y][x] = {
-					val : '0',
-					ga : 0,
-					tint : {
-						r : Math.round(Math.random()*255),
-						g : Math.round(Math.random()*255),
-						b : Math.round(Math.random()*255),
-						t : 0.6
-					}
+					val : '0'					
 				};
 			}
 		}
@@ -70,6 +72,8 @@ function DungeonController($scope, $http, $location, authService, CommonAppState
 			var room = rooms[i];
 			if(room.type == 'square'){
 				_renderSquareRoom(room, $scope.map); 
+			}else if(room.type == 'entrance'){
+				_renderEntrance(room, $scope.map);
 			}
 		}
 

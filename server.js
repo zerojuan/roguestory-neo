@@ -107,7 +107,7 @@ app.post('/auth/login', function(req, res, next){
 				alive : true,
 				user : user
 			});	
-		});
+		});		
 	})(req, res,next);	
 });
 

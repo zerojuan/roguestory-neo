@@ -1,59 +1,85 @@
 (function(module){
 	var ValueMap = require('./valuemap');
 
-	var _makeRoom = function(x, y, width, height, map){
-		return _designSquareRoom(x,y,width,height,map);
+	var _capWidth = function(startX, width, map){
+		var difference = startX+width - map[0].length;
+		if(difference >= 0){
+			return width - difference;
+		}
+		return width;
+	}
+
+	var _capHeight = function(startY, height, map){
+		var difference = startY + height - (map.length-1);
+		if(difference >= 0){
+			return height - difference;
+		}
+		return height;
+	}
+
+	var _makeRoom = function(x, y, width, height, map, rooms){
+		var w = _capWidth(x, width, map);
+		var h = _capHeight(y, height, map);
+
+		//select random type of room design
+		var room = _designSquareRoom(x,y,w,h,map,rooms);
+		if(room){
+			console.log('Room: ', room.x+room.width, room.y+room.height);
+		}
+		return room;
 	}
 
 	var _designEntrance = function(startX, startY, width, height, map){
+		var w = _capWidth(startX, width, map);
+		var h = _capHeight(startY, height, map);
 
+		if(w > 2 && h > 2){
+			for(var col = startX; col < startX+w; col++){
+				for(var row = startY; row < startY+h; row++){
+					val = {
+						val: ValueMap["wall"]
+					}
+					map[row][col] = val;
+				}
+			}
+		}
+
+		return {type: 'entrance', x: startX, y:startY, width: w, height: h, entrance: {
+			x: startX+(width/2),
+			y: startY
+		}};
 	}
 
-	var _designSquareRoom = function(startX, startY, width, height, map){
-		if(map.length-1 < (startY + height)){
-			console.log('Map.length: ' + map.length, "  : " + (startY+height));
+	var _designSquareRoom = function(startX, startY, width, height, map, rooms){
+		
+		//iterate through each room, check if it overlaps
+		var overlap = false;
+		rooms.forEach(function(room){
+			if (room.x < startX+width && room.x+room.width > startX &&
+    			room.y < startY+height && room.y+room.height > startY){
+				overlap = true;
+			}			
+		});
+
+		if(overlap){
 			return null;
 		}
-		if(map[0].length-1 < (startX + width) ){
-			console.log('Map[0].length: ' + map[0].length, "  : " +  (startX+width));
-			return null;
-		}
+
 		for(var col = startX; col < startX+width; col++){
 			for(var row = startY; row < startY+height; row++){
 				var val = {};
 
 				if(col == startX || col == startX+width-1){
 					val = {
-						val : '#',
-						ga : Math.random(),
-						tint : {
-							r : 255,
-							g : 255,
-							b : 255,
-							t : 0.6
-						}
+						val : ValueMap['wall'],						
 					}
 				}else if(row == startY || row==startY+height-1){
 					val = {
-						val : ValueMap['wall'],
-						ga : Math.random(),
-						tint : {
-							r : 255,
-							g : 255,
-							b : 255,
-							t : 0.6
-						}
+						val : ValueMap['wall'],						
 					}
 				}else{
 					val = {
-						val : '.',
-						ga : Math.random(),
-						tint : {
-							r : 255,
-							g : 255,
-							b : 255,
-							t : 0.6
-						}
+						val : '.',									
 					}
 				}
 				map[row][col] = val;				
@@ -90,10 +116,16 @@
 				}
 			}
 
-			for(var i = 0; i < 20; i++){
+			//decide on how many features this dungeon will have
+			var features = 20;
+			//create entrance
+			var entrance = _designEntrance(10, 10, 10, 10, map);
+			dungeonData.rooms.push(entrance);
+			for(var i = 1; i < features; i++){
+
 				//make about 20 rooms
 				var room = _makeRoom(Math.round(Math.random() * cols) , Math.round(Math.random() * rows), 
-					Math.round(Math.random() * 20 + 3), Math.round(Math.random() * 20 + 3), map);
+					Math.round(Math.random() * 20 + 3), Math.round(Math.random() * 20 + 3), map, dungeonData.rooms);
 				if(room){
 					dungeonData.rooms.push(room);
 				}				
