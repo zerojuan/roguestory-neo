@@ -49,6 +49,7 @@ module.exports = function(grunt){
 					'app/js/services.js',
 					'app/js/controllers/home.js',
 					'app/js/controllers/login.js',
+					'app/js/controllers/dungeon.js',
 					'app/js/filters.js',
 					'app/js/directives/game.js'					
 				],
