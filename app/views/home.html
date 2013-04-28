@@ -1,0 +1,12 @@
+<!-- <p>{{message}}</p>
+<p>{{user.username}}</p> -->
+<div ng-show="loggedIn" id="home-holder">
+	<div class="hud">
+		<div class="navbar">
+		{{user.username}}<button ng-click="logout()">Logout</button>
+		</div>
+	</div>
+	<div ng-controller="DungeonController">		
+		<game map="map"></game>		
+	</div>	
+</div>

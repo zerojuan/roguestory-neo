@@ -44,7 +44,7 @@
       }
 
       this.loader.loadManifest(assetManifest);
-
+      //TODO: Create a layer for the mouse controller
       this.tick = function(evt){
         that.stage.update(event);
       }  

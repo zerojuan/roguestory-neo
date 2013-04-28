@@ -8,10 +8,9 @@ module.exports = function(grunt){
 			prod : {
 				files : [
 					{expand: true, flatten: true, cwd: 'app/css/', src: ['*.css'], dest: 'client-prod/css/', filter: 'isFile'}, // includes files in path
-	  		      	{expand: true, flatten: false, cwd: 'app/img/', src: ['**'], dest: 'client-prod/img/'}, // includes files in path and its subdirs
-	  		      	{expand: true, flatten: true, cwd: 'app/data/', src: ['**'], dest: 'client-prod/data/'}, // includes files in path and its subdirs
+	  		      	{expand: true, flatten: false, cwd: 'app/img/', src: ['**'], dest: 'client-prod/img/'}, // includes files in path and its subdirs	  		      	
 	  		      	{expand: true, flatten: true, cwd: 'app/fonts/', src: ['**'], dest: 'client-prod/fonts/'},
-	  		      	{expand: true, flatten: true, cwd: 'app/partials/', src: ['**'], dest: 'client-prod/partials/'} // includes files in path and its subdirs
+	  		      	{expand: true, flatten: true, cwd: 'app/views/', src: ['**'], dest: 'client-prod/partials/'} // includes files in path and its subdirs
 				]
 			}
 		},
@@ -40,18 +39,18 @@ module.exports = function(grunt){
 			prod : {
 				separator : ';',
 				src : [					
-					'app/lib/easel-0.6.js',
-					'app/lib/preloadjs-0.3.js',
-					'app/lib/tween-0.4.js',
-					'app/lib/http-auth-interceptor.js',
-					'app/js/game/base-board.js',
-					'app/js/app.js',
-					'app/js/services.js',
-					'app/js/controllers/home.js',
-					'app/js/controllers/login.js',
-					'app/js/controllers/dungeon.js',
-					'app/js/filters.js',
-					'app/js/directives/game.js'					
+					'app/scripts/vendors/easel-0.6.js',
+					'app/scripts/vendors/preloadjs-0.3.js',
+					'app/scripts/vendors/tween-0.4.js',
+					'app/scripts/vendors/http-auth-interceptor.js',
+					'app/scripts/game/base-board.js',
+					'app/scripts/app.js',
+					'app/scripts/services.js',
+					'app/scripts/controllers/home.js',
+					'app/scripts/controllers/login.js',
+					'app/scripts/controllers/dungeon.js',
+					'app/scripts/filters.js',
+					'app/scripts/directives/game.js'					
 				],
 				dest : 'client-prod/app.js'
 			}
