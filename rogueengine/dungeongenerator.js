@@ -117,19 +117,29 @@
 			}
 
 			//decide on how many features this dungeon will have
-			var features = 20;
+			var roomsNum = 20;
+			var hallwaysNum = 20;
+			var i = 0;
+
 			//create entrance
 			var entrance = _designEntrance(10, 10, 10, 10, map);
 			dungeonData.rooms.push(entrance);
-			for(var i = 1; i < features; i++){
+			
+			//make about 20 rooms
+			for(i = 1; i < roomsNum; i++){
 
-				//make about 20 rooms
+				
 				var room = _makeRoom(Math.round(Math.random() * cols) , Math.round(Math.random() * rows), 
 					Math.round(Math.random() * 20 + 3), Math.round(Math.random() * 20 + 3), map, dungeonData.rooms);
 				if(room){
 					dungeonData.rooms.push(room);
 				}				
-			}			
+			}
+
+			//make hallways
+			for(i = 0; i < hallwaysNum; i++){
+				//TODO: Make hallways
+			}
 			
 			return dungeonData;
 		}		

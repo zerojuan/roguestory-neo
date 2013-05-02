@@ -8,7 +8,7 @@
 		}
 	}
 	
-	angular.module('myApp.gameModule', [])
+	angular.module('myApp.gameModule')
 		.factory('BaseBoard', [function() {
 			var BaseBoard = function(opts){
 				this.initialize(opts);

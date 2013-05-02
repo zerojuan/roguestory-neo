@@ -10,12 +10,40 @@
       var that = this;
       this.canvas = opts.canvas;
       this.stage = new createjs.Stage(this.canvas);
+
+      this.stage.onMouseUp = function(evt){
+        that.handleInput(evt);
+      }
+
+      this.stage.onMouseMove = function(evt){
+        that.handleMouseMove(evt);
+      }
+
+      this.stage.onMouseDown = function(evt){
+        that.handleMouseDown(evt);
+      }
+
+      this.offset = {
+        x: 12,
+        y: 18
+      }
+
       this.base = opts.base;
       this.map = opts.map;
       this.assets = [];
       console.log(window.innerHeight, window.innerWidth);
       this.canvas.height = window.innerHeight;
       this.canvas.width = window.innerWidth;    
+
+      var tileDownG = new createjs.Graphics();
+      tileDownG.beginFill('#cc0');
+      tileDownG.drawRect(0, 0, 12, 18);
+      tileDownG.endFill();
+
+      this.tileDown = new createjs.Shape(tileDownG);
+      this.tileDown.alpha = 1;
+      this.tileDown.x = -300;
+      this.tileDown.y = -300;
 
       this.loader = new createjs.LoadQueue(false);
       this.loader.useXHR = false;
@@ -39,15 +67,55 @@
               break;
           }
         }
+        that.pathLayer = new opts.PathUI();
 
-        that.stage.addChild(that.base);
+        that.stage.addChild(that.base, that.pathLayer.graphics, that.tileDown);
       }
 
       this.loader.loadManifest(assetManifest);
       //TODO: Create a layer for the mouse controller
       this.tick = function(evt){
         that.stage.update(event);
-      }  
+      }
+
+      this.handleMouseDown = function(evt){
+        var mouseX = evt.rawX - this.offset.x;
+        var mouseY = evt.rawY - this.offset.y;
+
+        //TODO: Add boundary checks
+
+        var col = Math.floor(mouseX / 12);
+        var row = Math.floor(mouseY / 18);
+
+        this.tileDown.x = col * 12 + this.offset.x;
+        this.tileDown.y = row * 18 + this.offset.y;
+        this.tileDown.alpha = 0;
+        createjs.Tween.get(this.tileDown, {override: true}).to({alpha: .6}, 500);
+      } 
+
+      this.handleMouseMove = function(evt){
+        var mouseX = evt.rawX - this.offset.x;
+        var mouseY = evt.rawY - this.offset.y;
+
+        var col = Math.floor(mouseX / 12);
+        var row = Math.floor(mouseY / 18);
+
+        this.tileDown.x = col * 12 + this.offset.x;
+        this.tileDown.y = row * 18 + this.offset.y;
+        this.tileDown.alpha = 0;
+        //createjs.Tween.get(this.tileDown, {override: true}).to({alpha: .6}, 500);
+      } 
+
+      this.handleInput = function(evt){
+        var mouseX = evt.rawX - this.offset.x;
+        var mouseY = evt.rawY - this.offset.y;
+
+        this.tileDown.alpha = .6;
+
+        //TODO: Add boundary checks
+        //TODO: Dispatch this tap to the world
+        createjs.Tween.get(this.tileDown, {override: true}).to({alpha: 0}, 500);
+      }
 
       this.updateMap = function(map){
         this.map = map;
@@ -66,7 +134,7 @@
   }());
 
   angular.module('myApp.directives').
-  directive('game', ['BaseBoard', function(BaseBoard){
+  directive('game', ['BaseBoard', 'PathUI', function(BaseBoard, PathUI){
     return {
       restrict: 'E',
       transclude : true,
@@ -79,9 +147,10 @@
       link : function(scope, elm, attrs){
 
         var _m = new GameModel({
-          canvas : elm[0],
-          map : scope.map,
-          BaseBoard : BaseBoard          
+          canvas: elm[0],
+          map: scope.map,
+          BaseBoard: BaseBoard,
+          PathUI: PathUI        
         });
 
         elm.width(window.innerWidth);

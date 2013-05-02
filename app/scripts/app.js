@@ -1,6 +1,8 @@
 'use strict';
 
 
+angular.module('myApp.gameModule', []);
+
 angular.module('myApp.directives', ['myApp.gameModule','http-auth-interceptor']);
 
 // Declare app level module which depends on filters, and services
