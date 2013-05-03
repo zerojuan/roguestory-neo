@@ -3,48 +3,47 @@
 <head>
   <meta charset="utf-8">
   <title>Rogue Story</title>
+  <link href='http://fonts.googleapis.com/css?family=Anonymous+Pro' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="css/reset.css"/>
+  <link rel="stylesheet" href="css/style.css"/>
   <link rel="stylesheet" href="css/app.css"/>
 </head>
-<body class="login-test waiting-for-angular">  
-  <div id="login-holder">
-    <div id="loginbox">
-      <div id="login-inner" ng:controller="LoginController">
-        <form ng-submit="submit()">
-          <table border="0" cellpadding="0" cellspacing="0">
-            <tr>
-              <th>Username</th>
-              <td><input type="text" class="login-inp" ng-model="username"/></td>
-            </tr>
-            <tr>
-              <th>Password</th>
-              <td><input type="password" class="login-inp" ng-model="password"/></td>
-            </tr>
-            <tr>
-              <th></th>
-              <td><input type="submit" class="submit-login"/></td>
-            </tr>
-          </table>
-        </form>
-      </div>
-      <div class="clear"></div>
-    </div>
-  </div>
+<body>  
+  
   <div id="content">
-    <div ng-view></div>
+    <div ng-view ng-animate="{enter: 'view-enter', leave: 'view-leave'}" ></div>
   </div>
   
-  <div>Version<span app-version></span></div>
+  <div id="version">Version %VERSION%</div>
 
-  <!-- In production use:
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.min.js"></script>
-  -->
-  <script src="lib/jquery-1.8.2.js" type="text/javascript"></script>
-  <script src="lib/angular/angular.js"></script>
-  <script src="lib/http-auth-interceptor.js"></script>
-  <script src="js/app.js"></script>
-  <script src="js/services.js"></script>
-  <script src="js/controllers.js"></script>
-  <script src="js/filters.js"></script>
-  <script src="js/directives.js"></script>
+  <!--(if target dev)><!-->
+  <script src="/scripts/vendors/jquery-1.8.2.js" type="text/javascript"></script>
+  <script src="/scripts/vendors/easel-0.6.js" type="text/javascript"></script>
+  <script src="/scripts/vendors/preloadjs-0.3.js" type="text/javascript"></script>
+  <script src="/scripts/vendors/tween-0.4.js" type="text/javascript"></script>
+  <script src="/scripts/vendors/angular/angular.js"></script>
+  <script src="/scripts/vendors/http-auth-interceptor.js"></script>      
+  <script src="/scripts/app.js"></script>
+  <script src="/scripts/services.js"></script>  
+  <script src="/scripts/game/base-board.js"></script>
+  <script src="/scripts/game/path-ui.js"></script>
+  <script src="/scripts/controllers/login.js"></script>
+  <script src="/scripts/controllers/home.js"></script>
+  <script src="/scripts/controllers/dungeon.js"></script>
+  <script src="/scripts/filters.js"></script>
+  <script src="/scripts/directives/game.js"></script>
+
+  <!--<!(endif)-->
+  <!--(if target prod)>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.min.js"></script>
+  <script src="app.min.js"></script>
+  <!(endif)-->
+
+  <!--(if target pre)>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.min.js"></script>
+  <script src="app.js"></script>
+  <!(endif)-->
 </body>
 </html>

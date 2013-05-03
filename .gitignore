@@ -1,10 +1,14 @@
-**/.DS_Store
-nbproject
-manifest.mf
-build.xml
-
-.project
-.settings
-.idea/*
 /node_modules
-*.sublime-project *.sublime-workspace
+/client-prod
+/target
+/lib
+/classes
+/checkouts
+pom.xml
+*.sublime-project
+*.sublime-workspace
+*.jar
+*.class
+.lein-deps-sum
+.lein-failures
+.lein-plugins
