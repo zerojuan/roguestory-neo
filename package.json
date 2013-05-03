@@ -8,7 +8,8 @@
     "grunt-targethtml": "~0.2.2",
     "grunt-contrib-copy": "~0.4.0",
     "grunt-contrib-jshint": "~0.3.0",
-    "grunt-contrib-clean": "~0.4.0"
+    "grunt-contrib-clean": "~0.4.0",
+    "mocha": "~1.9.0"
   },
   "dependencies": {
     "express": "",
@@ -24,7 +25,8 @@
     "neo.roguestory.com"
   ],
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "mocha test/server/ -u tdd"
   },
   "engines": {
     "node": "0.8.x"

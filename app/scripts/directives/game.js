@@ -24,8 +24,8 @@
       }
 
       this.offset = {
-        x: 12,
-        y: 18
+        x: 13,
+        y: 19
       }
 
       this.base = opts.base;
@@ -37,7 +37,7 @@
 
       var tileDownG = new createjs.Graphics();
       tileDownG.beginFill('#cc0');
-      tileDownG.drawRect(0, 0, 12, 18);
+      tileDownG.drawRect(0, 0, 13, 19);
       tileDownG.endFill();
 
       this.tileDown = new createjs.Shape(tileDownG);
@@ -84,25 +84,25 @@
 
         //TODO: Add boundary checks
 
-        var col = Math.floor(mouseX / 12);
-        var row = Math.floor(mouseY / 18);
+        var col = Math.floor(mouseX / 13);
+        var row = Math.floor(mouseY / 19);
 
-        this.tileDown.x = col * 12 + this.offset.x;
-        this.tileDown.y = row * 18 + this.offset.y;
+        this.tileDown.x = col * 13 + this.offset.x;
+        this.tileDown.y = row * 19 + this.offset.y;
         this.tileDown.alpha = 0;
-        createjs.Tween.get(this.tileDown, {override: true}).to({alpha: .6}, 500);
+        //createjs.Tween.get(this.tileDown, {override: true}).to({alpha: .6}, 500);
       } 
 
       this.handleMouseMove = function(evt){
         var mouseX = evt.rawX - this.offset.x;
         var mouseY = evt.rawY - this.offset.y;
 
-        var col = Math.floor(mouseX / 12);
-        var row = Math.floor(mouseY / 18);
+        var col = Math.floor(mouseX / 13);
+        var row = Math.floor(mouseY / 19);
 
-        this.tileDown.x = col * 12 + this.offset.x;
-        this.tileDown.y = row * 18 + this.offset.y;
-        this.tileDown.alpha = 0;
+        this.tileDown.x = col * 13 + this.offset.x;
+        this.tileDown.y = row * 19 + this.offset.y;
+        this.tileDown.alpha = .6;
         //createjs.Tween.get(this.tileDown, {override: true}).to({alpha: .6}, 500);
       } 
 
