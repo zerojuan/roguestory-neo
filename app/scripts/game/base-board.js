@@ -1,10 +1,14 @@
 (function(){
 	'use strict';
 
-	function _getColorFromMaterial(material){
+	function _getColorFromMaterial(material, strength){
 		switch(material){			
-			case 'STONE' : return 'rgba(195,227,179,1)';
-			case 'EARTH' : return 'rgba(233,233,176,1)';
+			case 'STONE':	if(strength){
+								var s = 1.3 - (strength);
+								return 'rgba(195,227,179,'+s+')';	
+							}return 'rgba(195,227,179,1)';
+			case 'EARTH': return 'rgba(233,233,176,1)';
+			case 'HERO_NORMAL': return 'rgba(200,200,170,1)';
 		}
 	}
 	
@@ -21,8 +25,8 @@
 			p.initialize = function(opts){
 				console.log("Initializing...");
 				this.DisplayObject_initialize();
-				this.tileWidth = 12;
-				this.tileHeight = 18;
+				this.tileWidth = 13;
+				this.tileHeight = 19;
 				if(opts.tileSheet){
 					this.tileSheet = opts.tileSheet;
 				}
@@ -42,8 +46,9 @@
 							}
 							var t = val.tint;
 							ctx.font = '13pt Conv_roguestoryneo';
-
-							ctx.fillStyle = _getColorFromMaterial(val.material);
+							var fillStyle = _getColorFromMaterial(val.material, val.strength);
+							//console.log(fillStyle);
+							ctx.fillStyle = fillStyle;
 							//ctx.fillRect(y * this.tileWidth, x * this.tileHeight, this.tileWidth, this.tileHeight);
 							if(val.pulse){
 								ctx.globalAlpha = val.pulse;

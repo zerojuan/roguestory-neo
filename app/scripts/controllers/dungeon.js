@@ -11,11 +11,11 @@ function DungeonController($scope, $http, $location, authService, CommonAppState
 					(j==data.y || j==data.y+data.height-1)){
 					val = {
 						val : CommonAppState.ValueMap['wall'],
-						material: 'STONE'						
+						material: 'STONE'											
 					}
 				}else{
 					val = {
-						val : '.',
+						val : '`',
 						material: 'EARTH'
 					}
 				}
@@ -27,6 +27,11 @@ function DungeonController($scope, $http, $location, authService, CommonAppState
 			material : 'STONE'
 		};
 		map[data.entrance.y][data.entrance.x] = entrance;
+
+		map[data.entrance.y][data.entrance.x] = {
+			val: CommonAppState.ValueMap['hero'],
+			material: 'HERO_NORMAL'
+		}
 	}
 
 	var _renderSquareRoom = function(data, map){
@@ -37,12 +42,14 @@ function DungeonController($scope, $http, $location, authService, CommonAppState
 				if(i == data.x || i == data.x+data.width-1){
 					val = {
 						val : CommonAppState.ValueMap['wall'],
-						material: 'STONE'
+						material: 'STONE',
+						strength: Math.random()
 					}
 				}else if(j == data.y || j==data.y+data.height-1){
 					val = {
 						val : CommonAppState.ValueMap['wall'],
-						material: 'STONE'
+						material: 'STONE',
+						strength: Math.random()
 					}
 				}else{
 					val = {
