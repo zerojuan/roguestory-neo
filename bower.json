@@ -1,0 +1,17 @@
+{
+  "name": "roguestory-neo",
+  "version": "0.0.1",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components"
+  ],
+  "dependencies": {
+    "jquery": "~2.0.0",
+    "EaselJS": "latest",
+    "PreloadJS": "latest",
+    "angular": "~1.0.6",
+    "TweenJS": "latest",
+    "angular-http-auth": "latest"
+  }
+}

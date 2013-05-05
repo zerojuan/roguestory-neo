@@ -7,7 +7,7 @@ module.exports = function(grunt){
 		copy : {
 			prod : {
 				files : [
-					{expand: true, flatten: true, cwd: 'app/css/', src: ['*.css'], dest: 'client-prod/css/', filter: 'isFile'}, // includes files in path
+					{expand: true, flatten: true, cwd: 'app/styles/', src: ['*.css'], dest: 'client-prod/styles/', filter: 'isFile'}, // includes files in path
 	  		      	{expand: true, flatten: false, cwd: 'app/img/', src: ['**'], dest: 'client-prod/img/'}, // includes files in path and its subdirs	  		      	
 	  		      	{expand: true, flatten: true, cwd: 'app/fonts/', src: ['**'], dest: 'client-prod/fonts/'},
 	  		      	{expand: true, flatten: true, cwd: 'app/views/', src: ['**'], dest: 'client-prod/partials/'} // includes files in path and its subdirs
@@ -39,9 +39,6 @@ module.exports = function(grunt){
 			prod : {
 				separator : ';',
 				src : [					
-					'app/scripts/vendors/easel-0.6.js',
-					'app/scripts/vendors/preloadjs-0.3.js',
-					'app/scripts/vendors/tween-0.4.js',
 					'app/scripts/vendors/http-auth-interceptor.js',
 					'app/scripts/game/base-board.js',
 					'app/scripts/app.js',
