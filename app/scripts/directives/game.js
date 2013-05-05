@@ -68,7 +68,8 @@
           }
         }
         that.pathLayer = new opts.PathUI();
-
+        that.base.x = that.offset.x;
+        that.base.y = that.offset.y;
         that.stage.addChild(that.base, that.pathLayer.graphics, that.tileDown);
       }
 

@@ -28,7 +28,7 @@ function DungeonController($scope, $http, $location, authService, CommonAppState
 		};
 		map[data.entrance.y][data.entrance.x] = entrance;
 
-		map[data.entrance.y][data.entrance.x] = {
+		map[data.entrance.y][data.entrance.x-1] = {
 			val: CommonAppState.ValueMap['hero'],
 			material: 'HERO_NORMAL'
 		}

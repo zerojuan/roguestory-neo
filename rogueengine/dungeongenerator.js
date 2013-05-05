@@ -12,15 +12,7 @@
 			var map = [];
 			var rows = size.height; //38;
 			var cols = size.width; //80;
-			//FILL THE LEVEL WITH DIRT
-			for(var y = 0; y < rows; y++){
-				map[y] = [];
-				for(var x = 0; x < cols; x++){					
-					map[y][x] = {
-						val : '0'
-					}					
-				}
-			}			
+						
 
 			//DIG OUT A SINGLE ROOM IN THE CORNER
 			var entrance = GH.designEntrance(cols-10, 10, 10, 10, map);
@@ -43,12 +35,13 @@
 
 				//Randomly look for a room/corridor that we can punch an extension in
 				var currRoom = GH.getRandomRoom(dungeonData.rooms);
-				var possibleDoor = GH.getPossibleDoorway(currRoom);
+				var possibleDoor = GH.getPossibleDoorway(currRoom, dungeonData);
 
-
+				
 
 				var room = GH.makeRoom(Math.round(Math.random() * cols) , Math.round(Math.random() * rows), 
-					Math.round(Math.random() * 20 + 3), Math.round(Math.random() * 20 + 3), map, dungeonData.rooms);
+					Math.round(Math.random() * 20 + 3), Math.round(Math.random() * 20 + 3), dungeonData, dungeonData.rooms);
+
 				if(room){
 					dungeonData.rooms.push(room);
 				}				
