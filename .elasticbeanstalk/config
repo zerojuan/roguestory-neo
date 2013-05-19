@@ -1,0 +1,12 @@
+[global]
+ApplicationName=roguestory-neo
+AwsCredentialFile=C:\Users\Julius\.elasticbeanstalk\aws_credential_file
+DevToolsEndpoint=git.elasticbeanstalk.ap-southeast-1.amazonaws.com
+EnvironmentName=roguestory-neo-env
+InstanceProfileName=aws-elasticbeanstalk-ec2-role
+OptionSettingFile=C:\Users\Julius\Documents\workspace-node\roguestory-neo\.elasticbeanstalk\optionsettings.roguestory-neo-env
+RdsEnabled=No
+Region=ap-southeast-1
+ServiceEndpoint=https://elasticbeanstalk.ap-southeast-1.amazonaws.com
+SolutionStack=32bit Amazon Linux running Node.js
+
