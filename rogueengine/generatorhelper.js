@@ -27,21 +27,39 @@
 		/**
 		* Make sure the startX+width does not go off range from the map
 		*/
-		capWidth : function(startX, width, map){
-			var difference = startX+width - (map.width - 1);
-			if(difference >= 0){
-				return width - difference;
+		capWidth : function(startX, width, map, direction){
+			var _direction = direction || 'E';
+			if(_direction == 'E'){
+				var difference = startX+width - (map.width - 1);
+				if(difference >= 0){
+					return width - difference;
+				}	
+			}else{
+				var difference = startX-width;
+				if(difference <= 0){
+					return width + difference;
+				}
 			}
+			
 			return width;
 		},
 		/**
 		* Make sure the startY+height does not go off range from the map
 		*/
-		capHeight: function(startY, height, map){
-			var difference = startY + height - (map.height-1);
-			if(difference >= 0){
-				return height - difference;
+		capHeight: function(startY, height, map, direction){
+			var _direction = direction || 'S';
+			if(_direction == 'S'){
+				var difference = startY + height - (map.height-1);
+				if(difference >= 0){
+					return height - difference;
+				}	
+			}else{
+				var difference = startY - height;
+				if(difference <= 0){
+					return height + difference;
+				}
 			}
+			
 			return height;
 		},
 		makeRoom: function(x, y, width, height, map, rooms){
@@ -110,10 +128,39 @@
 			return {type : 'square', x: startX, y: startY, width: width, height: height};
 		},
 		designCrossRoom: function(startX, startY, width, height, map){
-
+			//TODO: Design cross room
 		},	
-		designHallway: function(roomA, roomB, map){
-			
+		designHallway: function(room, possibleDoor, map){
+			//create random length of hallway
+			var lengthTry = this.getRandomInt(1,10);
+			var hallway = {
+				d: possibleDoor.d,
+				x: possibleDoor.x,
+				y: possibleDoor.y
+			};
+
+			//TODO: Hallways shouldn't overlap with other features
+			switch(possibleDoor.d){
+				case 'N':
+					//cap the hallway length
+					var length = this.capHeight(possibleDoor.y, lengthTry, map, 'N');
+					hallway.length = length; 
+					break;
+				case 'S':
+					var length = this.capHeight(possibleDoor.y, lengthTry, map, 'S');
+					hallway.length = length;
+					break;
+				case 'E':
+					var length = this.capWidth(possibleDoor.x, lengthTry, map, 'E');
+					hallway.length = length;
+					break;
+				case 'W':
+					var length = this.capWidth(possibleDoor.x, lengthTry, map, 'W');
+					hallway.length = length;
+					break;
+			}
+
+			return hallway;
 		},
 		getPossibleDoorway: function(room, map){
 			var that = this;

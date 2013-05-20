@@ -6,6 +6,7 @@
 		generateDungeon : function(size, level){
 			var dungeonData = {
 				rooms : [],
+				hallways: [],
 				width: size.width,
 				height: size.height
 			};
@@ -37,7 +38,12 @@
 				var currRoom = GH.getRandomRoom(dungeonData.rooms);
 				var possibleDoor = GH.getPossibleDoorway(currRoom, dungeonData);
 
-				
+				//Decide on what feature to make
+				if(currRoom){
+					//draw a hallway
+					var hallway = GH.designHallway(currRoom, possibleDoor, dungeonData);
+					dungeonData.hallways.push(hallway);
+				}
 
 				var room = GH.makeRoom(Math.round(Math.random() * cols) , Math.round(Math.random() * rows), 
 					Math.round(Math.random() * 20 + 3), Math.round(Math.random() * 20 + 3), dungeonData, dungeonData.rooms);

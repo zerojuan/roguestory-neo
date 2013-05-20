@@ -93,7 +93,17 @@ suite('Dungeon Generator: Helper', function(){
 		assert.ok(!GH.isAdjacentOrtho(doorTry, entrance.entrance), 'should not be adjacent to entrance (2)');
 	});
 
-	test('Test Hallway Making');
+	test('Test Hallway Making', function(){
+		var dungeon = createFreshMap(20, 20);
+
+		var entrance = GH.designEntrance(2, 2, 5, 5, dungeon);
+		var doorTry = GH.getPossibleDoorway(entrance, dungeon);
+		assert.ok(doorTry, 'possible doorway, gotten');
+		var hallway = GH.designHallway(entrance, doorTry, dungeon);
+
+		assert.ok(hallway, 'hallway created');
+		assert.ok(hallway.length > 1, 'hallway length must be greater than 1');
+	});
 
 	
 });

@@ -10,7 +10,7 @@ module.exports = function(grunt){
 					{expand: true, flatten: true, cwd: 'app/styles/', src: ['*.css'], dest: 'client-prod/styles/', filter: 'isFile'}, // includes files in path
 	  		      	{expand: true, flatten: false, cwd: 'app/img/', src: ['**'], dest: 'client-prod/img/'}, // includes files in path and its subdirs	  		      	
 	  		      	{expand: true, flatten: true, cwd: 'app/fonts/', src: ['**'], dest: 'client-prod/fonts/'},
-	  		      	{expand: true, flatten: true, cwd: 'app/views/', src: ['**'], dest: 'client-prod/partials/'} // includes files in path and its subdirs
+	  		      	{expand: true, flatten: true, cwd: 'app/views/', src: ['**'], dest: 'client-prod/views/'} // includes files in path and its subdirs
 				]
 			}
 		},
@@ -39,9 +39,10 @@ module.exports = function(grunt){
 			prod : {
 				separator : ';',
 				src : [					
-					'app/scripts/vendors/http-auth-interceptor.js',
-					'app/scripts/game/base-board.js',
+					'app/scripts/vendors/http-auth-interceptor.js',					
 					'app/scripts/app.js',
+					'app/scripts/game/base-board.js',
+					'app/scripts/game/path-ui.js',
 					'app/scripts/services.js',
 					'app/scripts/controllers/home.js',
 					'app/scripts/controllers/login.js',
