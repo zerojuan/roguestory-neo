@@ -42,25 +42,27 @@ suite('Dungeon Generator: Helper', function(){
 	test('Test Make Room', function(){
 		var map = createFreshMap(20, 30);
 
-		var rooms = [];
+		map.rooms = [];
 		var room = GH.makeRoom(0, 0, 23, 23, map);
 		assert.ok(room, 'should build a room');
 		assert.ok(room.width == 19, 'should trim the width');
-		rooms.push(room);
+		map.rooms.push(room);
 
-		room = GH.makeRoom(0, 0, 3, 3, map, rooms);
+
+
+		room = GH.makeRoom(0, 0, 3, 3, map);
 		assert.ok(!room, 'should not return a room, map is full');
 
-		rooms = [];
+		map.rooms = [];
 		room = GH.makeRoom(0, 0, 2, 2, map);
 		assert.ok(!room, 'should not make a room less than the minimum dimensions');
 		room = GH.makeRoom(0, 0, 3, 3, map);
 		assert.ok(room.width == 3 && room.height == 3, 'should make a room at minimum dimension');
-		rooms.push(room);
-		room = GH.makeRoom(3, 3, 4, 4, map, rooms);
+		map.rooms.push(room);
+		room = GH.makeRoom(3, 3, 4, 4, map);
 		assert.ok(room.width == 4 && room.height == 4, 'should not overlap');
-		rooms.push(room);
-		room = GH.makeRoom(4, 4, 4, 4, map, rooms);
+		map.rooms.push(room);
+		room = GH.makeRoom(4, 4, 4, 4, map);
 		assert.ok(!room, 'should overlap');
 	});
 
@@ -85,26 +87,28 @@ suite('Dungeon Generator: Helper', function(){
 		
 		assert.ok(entrance.entrance.x == 5 && entrance.entrance.y == 4, 'entrance default(E)');
 		var doorTry = GH.getPossibleDoorway(entrance, dungeon);
-		assert.ok(doorTry, 'possible doorway, gotten');
+		assert.ok(!doorTry, 'Doorway shouldnt be possible near boundaries');
+
+		dungeon = createFreshMap(20, 20);
+		entrance = GH.designEntrance(2,2,5,5, dungeon);
+		doorTry = GH.getPossibleDoorway(entrance, dungeon);
 		assert.ok(!GH.isAdjacentOrtho(doorTry, entrance.entrance), 'should not be adjacent to entrance');
 
 		entrance = GH.designEntrance(2, 2, 3, 3, dungeon);
 		doorTry = GH.getPossibleDoorway(entrance, dungeon);
 		assert.ok(!GH.isAdjacentOrtho(doorTry, entrance.entrance), 'should not be adjacent to entrance (2)');
+		
 	});
 
 	test('Test Hallway Making', function(){
 		var dungeon = createFreshMap(20, 20);
 
-		var entrance = GH.designEntrance(2, 2, 5, 5, dungeon);
-		var doorTry = GH.getPossibleDoorway(entrance, dungeon);
+		var entrance = GH.designEntrance(2, 2, 5, 5, dungeon);		
+		var doorTry = GH.getPossibleDoorway(entrance, dungeon);		
 		assert.ok(doorTry, 'possible doorway, gotten');
-		var hallway = GH.designHallway(entrance, doorTry, dungeon);
-
-		assert.ok(hallway, 'hallway created');
-		assert.ok(hallway.length > 1, 'hallway length must be greater than 1');
+		var hallway = GH.designHallway(entrance, doorTry, dungeon);		
+		assert.ok(hallway && hallway.length > 3, 'hallway length must be greater than 3');		
 	});
-
 	
 });
 

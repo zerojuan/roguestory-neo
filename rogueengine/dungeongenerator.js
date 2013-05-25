@@ -42,11 +42,12 @@
 				if(currRoom){
 					//draw a hallway
 					var hallway = GH.designHallway(currRoom, possibleDoor, dungeonData);
-					dungeonData.hallways.push(hallway);
+					if(hallway)
+						dungeonData.hallways.push(hallway);
 				}
 
 				var room = GH.makeRoom(Math.round(Math.random() * cols) , Math.round(Math.random() * rows), 
-					Math.round(Math.random() * 20 + 3), Math.round(Math.random() * 20 + 3), dungeonData, dungeonData.rooms);
+					Math.round(Math.random() * 20 + 3), Math.round(Math.random() * 20 + 3), dungeonData, possibleDoor);
 
 				if(room){
 					dungeonData.rooms.push(room);

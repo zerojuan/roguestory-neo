@@ -62,12 +62,12 @@
 			
 			return height;
 		},
-		makeRoom: function(x, y, width, height, map, rooms){
+		makeRoom: function(x, y, width, height, map, door){
 			var w = this.capWidth(x, width, map);
 			var h = this.capHeight(y, height, map);
 
 			//select random type of room design
-			var room = this.designSquareRoom(x,y,w,h,map,rooms);			
+			var room = this.designSquareRoom(x,y,w,h,map, door);			
 			return room;
 		},
 		designEntrance: function(startX, startY, width, height, map, direction){
@@ -104,10 +104,11 @@
 
 			return {type: 'entrance', x: startX, y:startY, width: w, height: h, entrance: entrance};
 		},
-		designSquareRoom: function(startX, startY, width, height, map, rooms){
+		designSquareRoom: function(startX, startY, width, height, map, door){
 			
 			//iterate through each room, check if it overlaps
 			var overlap = false;
+			var rooms = map.rooms;
 			if(rooms){
 				rooms.forEach(function(room){
 					if (room.x < startX+width && room.x+room.width > startX &&
@@ -139,45 +140,71 @@
 				y: possibleDoor.y
 			};
 
-			//TODO: Hallways shouldn't overlap with other features
+			//for checking overlaps
+			var height = 1,
+				width = 1,
+				startX = possibleDoor.x,
+				startY = possibleDoor.y;
+			
 			switch(possibleDoor.d){
 				case 'N':
 					//cap the hallway length
 					var length = this.capHeight(possibleDoor.y, lengthTry, map, 'N');
-					hallway.length = length; 
+					hallway.length = length;
+					height = length;
+					startY = possibleDoor.y - length;					
 					break;
 				case 'S':
 					var length = this.capHeight(possibleDoor.y, lengthTry, map, 'S');
 					hallway.length = length;
+					height = length;					
 					break;
 				case 'E':
 					var length = this.capWidth(possibleDoor.x, lengthTry, map, 'E');
 					hallway.length = length;
+					width = length;
 					break;
 				case 'W':
 					var length = this.capWidth(possibleDoor.x, lengthTry, map, 'W');
 					hallway.length = length;
+					width = length;
+					startX = possibleDoor.x-length;
 					break;
 			}
+
+			//Iterate through each room. check if it overlaps
+			var overlapped = false;
+			if(map.rooms){
+				map.rooms.forEach(function(room){
+					if (room.x < startX+width && room.x+room.width > startX &&
+		    			room.y < startY+height && room.y+room.height > startY){												
+						overlapped = true;
+					}			
+				});
+			}
+
+			if(overlapped || hallway.length < 4){				
+				return null;
+			}			
 
 			return hallway;
 		},
 		getPossibleDoorway: function(room, map){
 			var that = this;
+			var doorBuffer = 3; //so doors wouldn't appear on boundaries
 			//look for doorway per type of room
 			function findDoorInSquare(room){			
 				var directions = ['N', 'S', 'E', 'W'];
-				var entrance = room.entrance;
-				
+				var entrance = room.entrance;				
 				//try 30 times to look for a door
 				for(var i = 0; i < 30; i++){
 					//pick a random face or direction
 					var direction = directions[Math.floor(Math.random()*4)];
-					var doorTry = null;
+					var doorTry = null;					
 					switch(direction){
 						case 'N': 
 							//check if this door is on a boundary
-							if(room.y > 0){
+							if(room.y > doorBuffer){
 								doorTry = {
 									d: direction,
 									x: that.getRandomInt(room.x+1, room.x+room.width-2),
@@ -186,7 +213,7 @@
 							}
 							break;
 						case 'S':
-							if(room.y + room.height-1 < map.height){
+							if(room.y + room.height-1 < map.height-doorBuffer){
 								doorTry = {
 									d: direction,
 									x: that.getRandomInt(room.x+1, room.x+room.width-2),
@@ -195,7 +222,7 @@
 							}
 							break;
 						case 'E':
-							if(room.x + room.width-1 < map.width){
+							if(room.x + room.width-1 < map.width - doorBuffer){
 								doorTry = {
 									d: direction,
 									x: room.x + room.width-1,
@@ -204,7 +231,7 @@
 							}
 							break;
 						case 'W':
-							if(room.y> 0){
+							if(room.y> doorBuffer){
 								doorTry = {
 									d: direction,
 									x: room.x,
