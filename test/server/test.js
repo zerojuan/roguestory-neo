@@ -40,6 +40,8 @@ suite('Dungeon Generator: Helper', function(){
 	});
 
 	test('Test Make Room', function(){
+
+		//TODO: Room should be designed based on the entrance to it
 		var map = createFreshMap(20, 30);
 
 		map.rooms = [];

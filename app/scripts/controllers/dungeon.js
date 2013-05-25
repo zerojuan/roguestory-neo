@@ -3,6 +3,56 @@ function DungeonController($scope, $http, $location, authService, CommonAppState
 	//get the map
 	$scope.map = [];
 	
+	var _renderWalls = function(map){
+		for(var row = 0; row < map.length; row++){
+			for(var col = 0; col < map[row].length; col++){
+				var score = 0;
+				if(map[row][col].val != '0'){
+					continue;
+				}
+				if((row-1 > -1 && map[row-1][col].material == 'EARTH')){
+					//console.log("TOP-MID");
+					score++;
+				}
+				if((row-1 > -1 && col-1 > -1 && map[row-1][col-1].material == 'EARTH')){
+					//console.log("TOP LEFT");
+					score++;
+				}
+				if((row-1 > -1 && col+1 < map[row].length && map[row-1][col+1].material == 'EARTH')){
+					//console.log("TOP RIGHT");
+					score++;
+				}
+				if((col+1 < map[row].length && map[row][col+1].material == 'EARTH')){
+					//console.log("MID_RIGHT");
+					score++;
+				}
+				if((col-1 > -1 && map[row][col-1].material == 'EARTH')){
+					//console.log("MID-LEFT");
+					score++;
+				}
+				if((row+1 < map.length && col-1 > -1 && map[row+1][col-1].material == 'EARTH')){
+					//console.log("BOTTOM LEFT");
+					score++;
+				}
+				if((row+1 < map.length && col+1 < map[row].length && map[row+1][col+1].material == 'EARTH')){
+					//console.log("BOTTOM-RIGHT");
+					score++;
+				}
+				if((row+1 < map.length && map[row+1][col].material == 'EARTH')){
+					//console.log("BOTTOM-MID");
+					score++;
+				}
+				if(score>0){					
+					map[row][col] = {
+						val: CommonAppState.ValueMap['wall'],
+						material: 'STONE'
+					}	
+				}
+				
+			}
+		}
+	}
+
 	var _renderEntrance = function(data, map){
 		for(var i  = data.x; i < data.x+data.width; i++){
 			for(var j = data.y; j < data.y+data.height; j++){
@@ -38,7 +88,7 @@ function DungeonController($scope, $http, $location, authService, CommonAppState
 		switch(data.d){
 			case 'N':
 				for(var i = data.y; i > data.y-data.length; i--){
-					console.log("NORTH");
+					//console.log("NORTH");
 					map[i][data.x] = {
 						val : '`',
 						material: 'EARTH'
@@ -47,7 +97,7 @@ function DungeonController($scope, $http, $location, authService, CommonAppState
 				break;
 			case 'S':
 				for(var i = data.y; i < data.y+data.length; i++){
-					console.log("SOUTH");
+					//console.log("SOUTH");
 					map[i][data.x] = {
 						val: '`',
 						material: 'EARTH'
@@ -56,7 +106,7 @@ function DungeonController($scope, $http, $location, authService, CommonAppState
 				break;
 			case 'E':
 				for(var i = data.x; i < data.x+data.length; i++){
-					console.log("EAST");
+					//console.log("EAST");
 					map[data.y][i] = {
 						val: '`',
 						material: 'EARTH'
@@ -65,7 +115,7 @@ function DungeonController($scope, $http, $location, authService, CommonAppState
 				break;
 			case 'W':
 				for(var i = data.x; i > data.x-data.length; i--){
-					console.log("WEST");
+					//console.log("WEST");
 					map[data.y][i] = {
 						val: '`',
 						material: 'EARTH'
@@ -134,8 +184,10 @@ function DungeonController($scope, $http, $location, authService, CommonAppState
 			var hallway = hallways[i];
 			_renderHallway(hallway, $scope.map);
 		}
-
-		//$scope.map = data;
+		
+		_renderWalls($scope.map);
+		
+		//TODO: Remove double doors
 	});
 
 	
