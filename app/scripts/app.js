@@ -1,7 +1,7 @@
 'use strict';
 
 
-angular.module('myApp.gameModule', []);
+angular.module('myApp.gameModule', ['myApp.services']);
 
 angular.module('myApp.directives', ['myApp.gameModule','http-auth-interceptor']);
 

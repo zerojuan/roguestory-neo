@@ -115,6 +115,9 @@
 
         //TODO: Add boundary checks
         //TODO: Dispatch this tap to the world
+        var col = Math.floor(mouseX / 13);
+        var row = Math.floor(mouseY / 19);
+        this.onClickedOnMap(col, row+1);
         createjs.Tween.get(this.tileDown, {override: true}).to({alpha: 0}, 500);
       }
 
@@ -153,6 +156,10 @@
           BaseBoard: BaseBoard,
           PathUI: PathUI        
         });
+
+        _m.onClickedOnMap = function(x, y){
+          scope.$emit('onClickedOnMap', x, y);
+        }
 
         elm.width(window.innerWidth);
         elm.height(window.innerHeight);

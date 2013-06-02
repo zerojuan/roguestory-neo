@@ -20,7 +20,7 @@
 			dungeonData.rooms.push(entrance);
 			
 			//decide on how many feature tries this dungeon will have
-			var features = 300;
+			var features = 1000;
 			var featureTry = 0;
 			var room_percentage = 50; //chance for room
 			var corridor_percentage = 50; //chance for corridor			
@@ -32,26 +32,59 @@
 					new_y = 0,
 					mod_x = 0,
 					mod_y = 0,
-					valid_tile = -1;
+					valid_tile = -1,
+					possibleDoor = null;
 
-				//Randomly look for a room/corridor that we can punch an extension in
+				//Randomly look for a room/corridor that we can punch an extension to
 				var currRoom = GH.getRandomRoom(dungeonData.rooms);
-				var possibleDoor = GH.getPossibleDoorway(currRoom, dungeonData);
-
-				//Decide on what feature to make
-				if(currRoom){
-					//draw a hallway
-					var hallway = GH.designHallway(currRoom, possibleDoor, dungeonData);
-					if(hallway)
-						dungeonData.hallways.push(hallway);
+				var currHallway = GH.getRandomHallway(dungeonData.hallways);
+				
+				//TODO: Decide on what feature to make
+				var feature = Math.random() * 100;
+				var currFeature = null;
+				if(feature <= 50){
+					//punch from room
+					if(currRoom){
+						possibleDoor = GH.getPossibleDoorway(currRoom, dungeonData);	
+						currFeature = currRoom;						
+					}
+					
+				}else{
+					//punch from hallway
+					if(currHallway){
+						possibleDoor = GH.getHallwayCrossing(currHallway, dungeonData);	
+						currFeature = currHallway;
+					}
+								
 				}
 
-				var room = GH.makeRoom(Math.round(Math.random() * cols) , Math.round(Math.random() * rows), 
-					Math.round(Math.random() * 20 + 3), Math.round(Math.random() * 20 + 3), dungeonData, possibleDoor);
+				//what feature should I make?
+				feature = Math.random() * 100;
+				if(possibleDoor){
+					if(feature <= room_percentage){
+						//make room						
+						var room = GH.makeRoomBasedOnDoor(possibleDoor, dungeonData);					
 
-				if(room){
-					dungeonData.rooms.push(room);
-				}				
+						if(room){
+							console.log("Room created: ", room);
+							dungeonData.rooms.push(room);
+							if(currFeature == currRoom){
+								console.log("Possible door pushed to currRoom", possibleDoor, currRoom);
+								currRoom.doors.push(possibleDoor);
+							}
+						}
+					}else{
+						//make hallway						
+						var hallway = GH.designHallway(possibleDoor, dungeonData);
+						if(hallway){
+							console.log("Hallway created: ", hallway);
+							console.log("Possible door from: ", currFeature);
+							dungeonData.hallways.push(hallway);
+						}
+						
+					}		
+				}
+														
 			}
 
 			

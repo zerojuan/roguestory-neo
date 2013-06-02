@@ -24,6 +24,28 @@
 			}
 			return false;
 		},
+		capX : function(x, map){
+			var result = x;
+			if(x < 0){
+				result = 0;
+				return result;
+			}else if(x > map.width - 1){
+				result = map.width - 1;
+				return result;
+			}
+			return result;
+		},
+		capY : function(y, map){
+			var result = y;
+			if(y < 0){
+				result = 0;
+				return result;
+			}else if(y > map.height - 1){
+				result = map.height - 1;
+				return result;
+			}
+			return result;
+		},
 		/**
 		* Make sure the startX+width does not go off range from the map
 		*/
@@ -61,6 +83,53 @@
 			}
 			
 			return height;
+		},
+		makeRoomBasedOnDoor: function(door, map){
+			var startX = 0,
+				startY = 0, 
+				width = 0, 
+				height = 0;
+			var maxWidth = 10,
+				maxHeight = 10;
+			var newDoor = {};
+
+			width = this.getRandomInt(5, maxWidth);
+			height = this.getRandomInt(5, maxHeight);
+
+			switch(door.d){
+				case 'N':
+					startX = door.x - width/2;
+					startY = door.y - height;
+					newDoor.d = 'S';
+					newDoor.x = door.x;
+					newDoor.y = door.y-1;
+					break;
+				case 'S':
+					startX = door.x - width/2;
+					startY = door.y;
+					newDoor.d = 'N';
+					newDoor.x = door.x;
+					newDoor.y = door.y+1;
+					break;
+				case 'E':
+					startY = door.y - height/2;
+					startX = door.x;
+					newDoor.d = 'W';
+					newDoor.x = door.x+1;
+					newDoor.y = door.y;
+					break;
+				case 'W':
+					startY = door.y - height/2;
+					startX = door.x - width;
+					newDoor.d = 'E';
+					newDoor.x = door.x-1;
+					newDoor.y = door.y;
+					break;
+			}
+			// if(door.type == 'crossing'){
+			//  	newDoor = null;
+			// }	
+			return this.makeRoom(this.capX(Math.floor(startX), map), this.capY(Math.floor(startY), map), width, height, map, newDoor);
 		},
 		makeRoom: function(x, y, width, height, map, door){
 			var w = this.capWidth(x, width, map);
@@ -102,7 +171,7 @@
 					}	
 			}
 
-			return {type: 'entrance', x: startX, y:startY, width: w, height: h, entrance: entrance};
+			return {type: 'entrance', x: startX, y:startY, width: w, height: h, entrance: entrance, doors: []};
 		},
 		designSquareRoom: function(startX, startY, width, height, map, door){
 			
@@ -126,12 +195,17 @@
 				return null;
 			}
 
-			return {type : 'square', x: startX, y: startY, width: width, height: height};
+			var doors = [];
+			if(door){
+				doors.push(door);	
+			}			
+
+			return {type : 'square', x: startX, y: startY, width: width, height: height, doors : doors};
 		},
 		designCrossRoom: function(startX, startY, width, height, map){
 			//TODO: Design cross room
 		},	
-		designHallway: function(room, possibleDoor, map){
+		designHallway: function(possibleDoor, map){
 			//create random length of hallway
 			var lengthTry = this.getRandomInt(1,10);
 			var hallway = {
@@ -156,8 +230,9 @@
 					break;
 				case 'S':
 					var length = this.capHeight(possibleDoor.y, lengthTry, map, 'S');
-					hallway.length = length;
-					height = length;					
+					//TODO: Probably a bigger problem on the boundaries for hallway S
+					hallway.length = length - 1;
+					height = length - 1;
 					break;
 				case 'E':
 					var length = this.capWidth(possibleDoor.x, lengthTry, map, 'E');
@@ -177,7 +252,7 @@
 			if(map.rooms){
 				map.rooms.forEach(function(room){
 					if (room.x < startX+width && room.x+room.width > startX &&
-		    			room.y < startY+height && room.y+room.height > startY){												
+		    			room.y < startY+height && room.y+room.height > startY){		    			
 						overlapped = true;
 					}			
 				});
@@ -188,6 +263,73 @@
 			}			
 
 			return hallway;
+		},
+		getHallwayCrossing: function(hallway, map){
+			var that = this;
+			
+			var directions = ['N', 'S', 'E', 'W'];
+			var direction = 'N';
+			for(var i = 0; i < 30; i++){
+				var doorTry = {};
+				var correctLength = hallway.length - 1;
+				switch(hallway.d){
+					case 'N':
+						directions = ['N', 'E', 'W'];
+						direction = directions[Math.floor(Math.random() * 3)];
+						doorTry.d = direction;
+						if(direction == 'N'){							
+							doorTry.x = hallway.x;
+							doorTry.y = hallway.y - correctLength
+						}else{
+							doorTry.x = hallway.x;
+							doorTry.y = that.getRandomInt(hallway.y - correctLength, hallway.y);
+						}
+						break;
+					case 'S':
+						directions = ['S', 'E', 'W'];
+						direction = directions[Math.floor(Math.random() * 3)];
+						doorTry.d = direction;
+						if(direction == 'S'){
+							doorTry.x = hallway.x;
+							doorTry.y = hallway.y + correctLength;
+						}else{
+							doorTry.x = hallway.x;
+							doorTry.y = that.getRandomInt(hallway.y, hallway.y + correctLength);
+						}
+						break;
+					case 'E':
+						directions = ['N', 'S', 'E'];
+						direction = directions[Math.floor(Math.random() * 3)];
+						doorTry.d = direction;
+						if(direction == 'E'){
+							doorTry.y = hallway.y;
+							doorTry.x = hallway.x + correctLength;							
+						}else{
+							doorTry.y = hallway.y;
+							doorTry.x = that.getRandomInt(hallway.x, hallway.x + correctLength);
+						}
+						break;
+					case 'W':
+						directions = ['N', 'S', 'W'];
+						direction = directions[Math.floor(Math.random() * 3)];
+						doorTry.d = direction;
+						if(direction == 'W'){
+							doorTry.y = hallway.y;
+							doorTry.x = hallway.x - correctLength;
+						}else{
+							doorTry.y = hallway.y;
+							doorTry.x = that.getRandomInt(hallway.x - correctLength, hallway.x);
+						}
+						break;
+				}
+				
+				if(doorTry.d){
+					doorTry.type = 'crossing';
+					return doorTry;
+				}
+			}
+
+			return null;				
 		},
 		getPossibleDoorway: function(room, map){
 			var that = this;
@@ -248,6 +390,7 @@
 								continue;
 							}
 						}
+						doorTry.type='room';
 						//Door found!
 						return doorTry;
 					}
@@ -268,6 +411,10 @@
 		getRandomRoom: function(rooms){
 			var i = Math.floor(Math.random() * rooms.length);
 			return rooms[i];
+		},
+		getRandomHallway: function(hallways){
+			var i = Math.floor(Math.random() * hallways.length);
+			return hallways[i];
 		}
 	}
 }(typeof module === 'undefined' ? this.rogueEngine = {} : module));

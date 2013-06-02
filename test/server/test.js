@@ -108,8 +108,25 @@ suite('Dungeon Generator: Helper', function(){
 		var entrance = GH.designEntrance(2, 2, 5, 5, dungeon);		
 		var doorTry = GH.getPossibleDoorway(entrance, dungeon);		
 		assert.ok(doorTry, 'possible doorway, gotten');
-		var hallway = GH.designHallway(entrance, doorTry, dungeon);		
-		assert.ok(hallway && hallway.length > 3, 'hallway length must be greater than 3');		
+		var hallway = GH.designHallway(doorTry, dungeon);		
+		if(hallway)
+			assert.ok(hallway.length > 3, 'hallway length must be greater than 3');		
+	});
+	
+	test('Test Hallway Crossing');
+	//getHallwayCrossing
+
+	test('Test Room Based on Door', function(){
+		//makeRoomBasedOnDoor
+		var dungeon = createFreshMap(20, 20);
+
+		var entrance = GH.designEntrance(2,5,5,5,dungeon);
+		dungeon.rooms.push(entrance);
+		var doorTry = GH.getPossibleDoorway(entrance, dungeon);
+		assert.ok(doorTry, 'possible doorway, gotten');
+		console.log(doorTry);
+		var newRoom = GH.makeRoomBasedOnDoor(doorTry, dungeon);
+		console.log(newRoom);
 	});
 	
 });
