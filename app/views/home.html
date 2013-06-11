@@ -4,7 +4,8 @@
 	<div class="hud">
 		<div class="navbar">
 		({{selectedTile.x}},{{selectedTile.y}})
-		{{user.username}}<button ng-click="logout()">Logout</button>
+		{{playerPosition.x}},{{playerPosition.y}}
+		{{user.username}}<a ng-click="logout()">Logout</a>
 		</div>
 	</div>
 	<div ng-controller="DungeonController">		

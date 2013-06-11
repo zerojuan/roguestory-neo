@@ -8,6 +8,11 @@ angular.module('myApp.services', []).
   factory('CommonAppState', ['$rootScope', function($rootScope){
   	var commonAppService = {};    
 
+	commonAppService.map = null;
+	commonAppService.playerPosition = {
+		x: 0,
+		y: 0
+	};
   	commonAppService.loggedInUser = null;
     commonAppService.ValueMap = {
       'hero' : 'A',

@@ -152,22 +152,26 @@
 			switch(d){
 				case 'E': entrance = {
 						x: startX+w-1,
-						y: Math.floor(startY+(h/2))
+						y: Math.floor(startY+(h/2)),
+						d: d
 					};
 					break;
 				case 'W': entrance = {
 						x: startX,
-						y: Math.floor(startY+(h/2))
+						y: Math.floor(startY+(h/2)),
+						d: d
 					};
 					break;
 				case 'N': entrance = {
 						x: Math.floor(startX+(w/2)),
-						y: startY
+						y: startY,
+						d: d
 					};
 					break;
 				case 'S': entrance = {
 						x: Math.floor(startX+(w/2)),
-						y: startY+h-1
+						y: startY+h-1,
+						d: d
 					}	
 			}
 

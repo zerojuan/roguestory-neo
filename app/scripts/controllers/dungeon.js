@@ -2,7 +2,6 @@
 function DungeonController($scope, $http, $location, authService, CommonAppState, DungeonUtil){
 	//get the map
 	$scope.map = [];
-		
 
 	$http.get('/dungeon').success(function(data){
 		$scope.map = [];
@@ -10,7 +9,7 @@ function DungeonController($scope, $http, $location, authService, CommonAppState
 			$scope.map[y] = [];
 			for(var x = 0; x < data.width; x++){
 				$scope.map[y][x] = {
-					val : '0'					
+					val : '0'
 				};
 			}
 		}
@@ -22,6 +21,12 @@ function DungeonController($scope, $http, $location, authService, CommonAppState
 				DungeonUtil.renderSquareRoom(room, $scope.map); 
 			}else if(room.type == 'entrance'){
 				DungeonUtil.renderEntrance(room, $scope.map);
+				var playerPosition = DungeonUtil.getHeroEntrancePosition(room);
+				CommonAppState.prepForBroadcast('playerPosition', playerPosition);
+				$scope.map[playerPosition.y][playerPosition.x] = {
+					val: CommonAppState.ValueMap['hero'],
+					material: 'HERO_NORMAL'
+				}
 			}
 		}
 
@@ -30,37 +35,14 @@ function DungeonController($scope, $http, $location, authService, CommonAppState
 			var hallway = hallways[i];
 			DungeonUtil.renderHallway(hallway, $scope.map);
 		}
-		
-
 
 		DungeonUtil.renderWalls($scope.map);
 		DungeonUtil.removeDoubleDoors($scope.map);		
 		DungeonUtil.removeDoubleLockedDoors($scope.map);
 		DungeonUtil.removeHangingDoors($scope.map);
+
+		//tell the rest of the app that a map is ready
+		CommonAppState.prepForBroadcast('map', $scope.map);
 	});
-
-	
-
-	$scope.updateMap = function(){
-		var rows = 38;
-		var cols = 80;
-		for(var y = 0; y < rows; y++){
-			$scope.map[y] = [];
-			for(var x = 0; x < cols; x++){
-				var val = 65 + (Math.round((Math.random() * ((70 - 65) + 1))));						
-				$scope.map[y][x] = {
-					val : CommonAppState.ValueMap['hero'],
-					ga : Math.random(),
-					tint : {
-						r : Math.round(Math.random()*255),
-						g : Math.round(Math.random()*255),
-						b : Math.round(Math.random()*255),
-						t : 0.6
-					}
-				}
-				
-			}
-		}		
-	}
 }
 DungeonController.$inject = ['$scope', '$http', '$location', 'authService', 'CommonAppState', 'DungeonUtil'];

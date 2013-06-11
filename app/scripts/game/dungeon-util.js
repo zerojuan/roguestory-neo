@@ -98,7 +98,7 @@
 								//console.log("MID-LEFT");
 								//console.log("MID_RIGHT");
 								map[row][col] = {
-									val: '.',
+									val: CommonAppState.ValueMap['stone'],
 									material: 'EARTH'
 								}
 							}
@@ -181,11 +181,6 @@
 					material : 'STONE'
 				};
 				map[data.entrance.y][data.entrance.x] = entrance;
-
-				map[data.entrance.y][data.entrance.x-1] = {
-					val: CommonAppState.ValueMap['hero'],
-					material: 'HERO_NORMAL'
-				}
 
 				for(var i = 0; i < data.doors.length; i++){
 					var door = data.doors[i];
@@ -278,6 +273,34 @@
 						material: 'STONE'
 					}
 				}
+			}
+
+			DungeonUtil.getHeroEntrancePosition = function(room){
+				var entrance = room.entrance;
+				var position = null;
+				switch(entrance.d){
+					case 'E': position = {
+								x: entrance.x - 1,
+								y: entrance.y
+							};
+							break;
+					case 'W': position = {
+								x: entrance.x + 1,
+								y: entrance.y
+							};
+							break;
+					case 'N': position = {
+								x: entrance.x,
+								y: entrance.y + 1
+							};
+							break;
+					case 'S': position = {
+								x: entrance.x,
+								y: entrance.y - 1
+							};
+							break;
+				}
+				return position;
 			}
 
 			return DungeonUtil;

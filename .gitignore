@@ -5,6 +5,7 @@
 /lib
 /classes
 /checkouts
+
 pom.xml
 *.sublime-project
 *.sublime-workspace
@@ -14,5 +15,9 @@ pom.xml
 .lein-failures
 .lein-plugins
 *.css
-
-.elasticbeanstalk/
+
+
+/.idea
+
+.elasticbeanstalk/
+

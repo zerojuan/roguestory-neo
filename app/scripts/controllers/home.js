@@ -3,6 +3,8 @@
 function HomeController($scope, $http, $location, authService, CommonAppState){
 	$scope.loggedIn = false;
 	$scope.selectedTile = {x: 5, y: 5};
+	$scope.playerPosition = CommonAppState.playerPosition;
+
 	$http.get('/home').success(function(data){
 		$scope.loggedIn = true;
 		$scope.message = data.message;
@@ -18,6 +20,15 @@ function HomeController($scope, $http, $location, authService, CommonAppState){
   		$location.path('/login');
   	});
 
+	$scope.$on('handleBroadcast[playerPosition]', function(){
+		$scope.playerPosition = CommonAppState.playerPosition;
+	});
+
+	$scope.$on('handleBroadcast[map]', function(){
+		//MAP IS READY
+		//TODO: create another directive for showing tile data
+	});
+
   	$scope.$on('onClickedOnMap', function(evt, x, y){
   		console.log("Clicked on Map Yo!", x, y);
   		$scope.selectedTile.x = x;
@@ -32,5 +43,7 @@ function HomeController($scope, $http, $location, authService, CommonAppState){
 			$location.path('/login');
 		});
 	}
+
+	$scope.$on('')
 }
 HomeController.$inject = ['$scope', '$http', '$location', 'authService', 'CommonAppState'];
