@@ -11,8 +11,9 @@
       this.canvas = opts.canvas;
       this.stage = new createjs.Stage(this.canvas);
 
+			//===== Create Input Listeners =======/
       this.stage.onMouseUp = function(evt){
-        that.handleInput(evt);
+        that.handleMouseUp(evt);
       }
 
       this.stage.onMouseMove = function(evt){
@@ -22,7 +23,9 @@
       this.stage.onMouseDown = function(evt){
         that.handleMouseDown(evt);
       }
+			//=====================================/
 
+			//Graphical offset of the tilemap render
       this.offset = {
         x: 13,
         y: 19
@@ -31,7 +34,8 @@
       this.base = opts.base;
       this.map = opts.map;
       this.assets = [];
-      console.log(window.innerHeight, window.innerWidth);
+
+      console.log("Initializing Window: "+ window.innerWidth + ", " + window.innerHeight);
       this.canvas.height = window.innerHeight;
       this.canvas.width = window.innerWidth;    
 
@@ -40,10 +44,16 @@
       tileDownG.drawRect(0, 0, 13, 19);
       tileDownG.endFill();
 
+			this.previousPosition = {
+				row: 0,
+				col: 0
+			};
+
       this.tileDown = new createjs.Shape(tileDownG);
       this.tileDown.alpha = 1;
       this.tileDown.x = -300;
       this.tileDown.y = -300;
+
 
       this.loader = new createjs.LoadQueue(false);
       this.loader.useXHR = false;
@@ -74,7 +84,7 @@
       }
 
       this.loader.loadManifest(assetManifest);
-      //TODO: Create a layer for the mouse controller
+
       this.tick = function(evt){
         that.stage.update(event);
       }
@@ -101,24 +111,40 @@
         var col = Math.floor(mouseX / 13);
         var row = Math.floor(mouseY / 19);
 
-        this.tileDown.x = col * 13 + this.offset.x;
-        this.tileDown.y = row * 19 + this.offset.y;
-        this.tileDown.alpha = .6;
+				if(this.isInBoundary(col, row+1)){
+					this.tileDown.x = col * 13 + this.offset.x;
+					this.tileDown.y = row * 19 + this.offset.y;
+					this.tileDown.alpha = .6;
+
+					if(col != this.previousPosition.col
+						|| row + 1 != this.previousPosition.row){
+						this.onHoverMapChanged(col, row+1);
+						this.previousPosition.col = col;
+						this.previousPosition.row = row + 1;
+					}
+				}else{
+					//TODO: Add alternate mouse UI when hovering to the sidebar
+				}
+
+
         //createjs.Tween.get(this.tileDown, {override: true}).to({alpha: .6}, 500);
       } 
 
-      this.handleInput = function(evt){
+      this.handleMouseUp = function(evt){
         var mouseX = evt.rawX - this.offset.x;
         var mouseY = evt.rawY - this.offset.y;
 
         this.tileDown.alpha = .6;
 
-        //TODO: Add boundary checks
-        //TODO: Dispatch this tap to the world
+
         var col = Math.floor(mouseX / 13);
         var row = Math.floor(mouseY / 19);
-        this.onClickedOnMap(col, row+1);
-        createjs.Tween.get(this.tileDown, {override: true}).to({alpha: 0}, 500);
+
+				if(this.isInBoundary(col, row + 1)){
+					this.onClickedOnMap(col, row + 1);
+					createjs.Tween.get(this.tileDown, {override: true}).to({alpha: 0}, 500);
+				}
+
       }
 
       this.updateMap = function(map){
@@ -129,6 +155,22 @@
         }
         
       }
+
+			this.isInBoundary = function(col, row){
+				var mapRows = this.map.length;
+				var mapCols = this.map[0].length;
+				console.log("Map has: " + mapRows + "," + mapCols);
+
+				if(row < 0 || row > mapRows-1){
+					return false;
+				}
+
+				if(col < 0 || col > mapCols-1){
+					return false;
+				}
+
+				return true;
+			}
 
       createjs.Ticker.addEventListener("tick", this.tick);
      
@@ -160,6 +202,10 @@
         _m.onClickedOnMap = function(x, y){
           scope.$emit('onClickedOnMap', x, y);
         }
+
+				_m.onHoverMapChanged = function(x, y){
+					scope.$emit('onMouseOverMapChanged', x, y);
+				}
 
         elm.width(window.innerWidth);
         elm.height(window.innerHeight);

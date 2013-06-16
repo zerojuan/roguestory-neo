@@ -26,15 +26,29 @@ function HomeController($scope, $http, $location, authService, CommonAppState){
 
 	$scope.$on('handleBroadcast[map]', function(){
 		//MAP IS READY
-		//TODO: create another directive for showing tile data
+
+		//Service takes care of identifying the tiles based on the [map] and values
 	});
 
-  	$scope.$on('onClickedOnMap', function(evt, x, y){
-  		console.log("Clicked on Map Yo!", x, y);
-  		$scope.selectedTile.x = x;
-  		$scope.selectedTile.y = y;
-  		$scope.$apply();
-  	});
+	$scope.$on('onClickedOnMap', function(evt, x, y){
+		$scope.selectedTile.x = x;
+		$scope.selectedTile.y = y;
+
+	  //TODO: execute path movement
+		$scope.$apply();
+	});
+
+
+	$scope.$on('onMouseOverMapChanged', function(evt, x, y){
+		$scope.selectedTile.x = x;
+		$scope.selectedTile.y = y;
+
+		//What am I looking at?
+		//TODO: create a service for converting tiledata to description
+		//TODO: make pathfinding algorithm
+
+		$scope.$apply();
+	});
 	
 	$scope.logout = function(){
 		$http.post('auth/logout').success(function(){
