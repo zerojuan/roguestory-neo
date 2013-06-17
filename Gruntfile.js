@@ -44,7 +44,7 @@ module.exports = function(grunt){
 					'app/scripts/game/base-board.js',
 					'app/scripts/game/path-ui.js',
 					'app/scripts/game/dungeon-util.js',
-					'app/scripts/services.js',
+					'app/scripts/services/appregistry.js',
 					'app/scripts/controllers/home.js',
 					'app/scripts/controllers/login.js',
 					'app/scripts/controllers/dungeon.js',

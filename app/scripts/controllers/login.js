@@ -2,7 +2,7 @@
 
 /* Controllers */
 
-function LoginController($scope, $http, $location, authService, CommonAppState){
+function LoginController($scope, $http, $location, authService, AppRegistry){
 	$scope.username = '';
 	$scope.password = '';
 	console.log('Login Controller');
@@ -13,7 +13,7 @@ function LoginController($scope, $http, $location, authService, CommonAppState){
 				$scope.flashError = data.message;
 				return;
 			}
-			CommonAppState.prepForBroadcast('loggedInUser', data.user);			
+			AppRegistry.prepForBroadcast('loggedInUser', data.user);			
 			authService.loginConfirmed();
 		});
 	};
@@ -26,4 +26,4 @@ function LoginController($scope, $http, $location, authService, CommonAppState){
 		$location.path('/home');
 	});
 }
-LoginController.$inject = ['$scope', '$http', '$location', 'authService', 'CommonAppState'];
+LoginController.$inject = ['$scope', '$http', '$location', 'authService', 'AppRegistry'];

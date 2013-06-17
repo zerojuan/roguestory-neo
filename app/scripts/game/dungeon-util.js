@@ -2,7 +2,7 @@
 	'use strict';
 
 	angular.module('myApp.gameModule')
-		.factory('DungeonUtil', ['CommonAppState', function(CommonAppState){
+		.factory('DungeonUtil', ['AppRegistry', function(AppRegistry){
 			var DungeonUtil = {};
 
 			DungeonUtil.removeDoubleDoors = function(map){
@@ -10,7 +10,7 @@
 				for(var row = 0; row < map.length; row++){
 					for(var col = 0; col < map[row].length; col++){
 						var score = 0;
-						var door = CommonAppState.ValueMap['door_open'];
+						var door = AppRegistry.ValueMap['door_open'];
 						if(map[row][col].val == door){
 							//check perpendicular, if it's the same
 							if((row-1 > -1 && map[row-1][col].val == door)){
@@ -49,9 +49,9 @@
 				for(var row = 0; row < map.length; row++){
 					for(var col = 0; col < map[row].length; col++){
 						var isHanging = true;
-						var wall = CommonAppState.ValueMap['wall'];
-						if(map[row][col].val == CommonAppState.ValueMap['door_open'] ||
-							map[row][col].val == CommonAppState.ValueMap['door_close']){
+						var wall = AppRegistry.ValueMap['wall'];
+						if(map[row][col].val == AppRegistry.ValueMap['door_open'] ||
+							map[row][col].val == AppRegistry.ValueMap['door_close']){
 							//check perpendicular, if it's the same
 							if((row-1 > -1 && map[row-1][col].val == wall) &&
 								(row+1 < map.length && map[row+1][col].val == wall)){
@@ -84,7 +84,7 @@
 			DungeonUtil.removeDoubleLockedDoors = function(map){				
 				for(var row = 0; row < map.length; row++){
 					for(var col = 0; col < map[row].length; col++){						
-						var doorClose = CommonAppState.ValueMap['door_close'];
+						var doorClose = AppRegistry.ValueMap['door_close'];
 						if(map[row][col].val == doorClose){
 							//check perpendicular, if it's the same
 							if(row+1 < map.length && map[row+1][col].val == doorClose){								
@@ -98,7 +98,7 @@
 								//console.log("MID-LEFT");
 								//console.log("MID_RIGHT");
 								map[row][col] = {
-									val: CommonAppState.ValueMap['stone'],
+									val: AppRegistry.ValueMap['stone'],
 									material: 'EARTH'
 								}
 							}
@@ -148,7 +148,7 @@
 						}
 						if(score>0){					
 							map[row][col] = {
-								val: CommonAppState.ValueMap['wall'],
+								val: AppRegistry.ValueMap['wall'],
 								material: 'STONE'
 							}	
 						}
@@ -164,7 +164,7 @@
 						if((i==data.x || i == data.x+data.width-1) || 
 							(j==data.y || j==data.y+data.height-1)){
 							val = {
-								val : CommonAppState.ValueMap['wall'],
+								val : AppRegistry.ValueMap['wall'],
 								material: 'STONE'											
 							}
 						}else{
@@ -177,7 +177,7 @@
 					}			
 				}
 				var entrance = {
-					val : CommonAppState.ValueMap['up_stairs'],
+					val : AppRegistry.ValueMap['up_stairs'],
 					material : 'STONE'
 				};
 				map[data.entrance.y][data.entrance.x] = entrance;
@@ -185,7 +185,7 @@
 				for(var i = 0; i < data.doors.length; i++){
 					var door = data.doors[i];
 					map[door.y][door.x] = {
-						val: CommonAppState.ValueMap['door_close'],
+						val: AppRegistry.ValueMap['door_close'],
 						material: 'STONE'
 					}
 				}
@@ -232,7 +232,7 @@
 				}
 				//if(data.type == 'room'){
 					map[data.y][data.x] = {
-						val: CommonAppState.ValueMap['door_open'],
+						val: AppRegistry.ValueMap['door_open'],
 						material: 'STONE'
 					}	
 				//}				
@@ -245,13 +245,13 @@
 
 						if(i == data.x || i == data.x+data.width-1){
 							val = {
-								val : CommonAppState.ValueMap['wall'],
+								val : AppRegistry.ValueMap['wall'],
 								material: 'STONE',
 								strength: Math.random()
 							}
 						}else if(j == data.y || j==data.y+data.height-1){
 							val = {
-								val : CommonAppState.ValueMap['wall'],
+								val : AppRegistry.ValueMap['wall'],
 								material: 'STONE',
 								strength: Math.random()
 							}
@@ -269,7 +269,7 @@
 				for(var i = 0; i < data.doors.length; i++){
 					var door = data.doors[i];
 					map[door.y][door.x] = {
-						val: CommonAppState.ValueMap['door_close'],
+						val: AppRegistry.ValueMap['door_close'],
 						material: 'STONE'
 					}
 				}

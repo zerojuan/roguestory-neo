@@ -1,5 +1,6 @@
 'use strict';
 
+angular.module('myApp.services', []);
 
 angular.module('myApp.gameModule', ['myApp.services']);
 

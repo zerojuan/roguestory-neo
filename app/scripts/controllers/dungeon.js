@@ -1,5 +1,5 @@
 
-function DungeonController($scope, $http, $location, authService, CommonAppState, DungeonUtil){
+function DungeonController($scope, $http, $location, authService, AppRegistry, DungeonUtil){
 	//get the map
 	$scope.map = [];
 
@@ -22,9 +22,9 @@ function DungeonController($scope, $http, $location, authService, CommonAppState
 			}else if(room.type == 'entrance'){
 				DungeonUtil.renderEntrance(room, $scope.map);
 				var playerPosition = DungeonUtil.getHeroEntrancePosition(room);
-				CommonAppState.prepForBroadcast('playerPosition', playerPosition);
+				AppRegistry.prepForBroadcast('playerPosition', playerPosition);
 				$scope.map[playerPosition.y][playerPosition.x] = {
-					val: CommonAppState.ValueMap['hero'],
+					val: AppRegistry.ValueMap['hero'],
 					material: 'HERO_NORMAL'
 				}
 			}
@@ -42,7 +42,7 @@ function DungeonController($scope, $http, $location, authService, CommonAppState
 		DungeonUtil.removeHangingDoors($scope.map);
 
 		//tell the rest of the app that a map is ready
-		CommonAppState.prepForBroadcast('map', $scope.map);
+		AppRegistry.prepForBroadcast('map', $scope.map);
 	});
 }
-DungeonController.$inject = ['$scope', '$http', '$location', 'authService', 'CommonAppState', 'DungeonUtil'];
+DungeonController.$inject = ['$scope', '$http', '$location', 'authService', 'AppRegistry', 'DungeonUtil'];
