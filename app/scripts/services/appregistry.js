@@ -26,6 +26,9 @@ angular.module('myApp.services').
 			'big_grass' : 'M'
 		};
 
+		AppRegistry.moveList = [];
+		AppRegistry.moveIndex = 0;
+
 
 		AppRegistry.prepForBroadcast = function(property, msg){
 			console.log('Saving Property: ', property, msg);

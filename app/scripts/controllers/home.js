@@ -35,6 +35,10 @@ function HomeController($scope, $http, $location, authService, AppRegistry, Path
 		$scope.selectedTile.y = y;
 
 	  //TODO: execute path movement
+		//broadcast to appregistry??
+		AppRegistry.prepForBroadcast('moveIndex', 0);
+
+
 		$scope.$apply();
 	});
 
@@ -47,7 +51,7 @@ function HomeController($scope, $http, $location, authService, AppRegistry, Path
 
 		var path = PathFinder.findPath({row: $scope.playerPosition.y, col: $scope.playerPosition.x},
 												{row: y, col: x}, AppRegistry.map);
-
+		AppRegistry.prepForBroadcast('moveList', path);
 		//TODO: create path renderer
 
 		$scope.$apply();

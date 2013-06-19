@@ -77,7 +77,9 @@
               break;
           }
         }
-        that.pathLayer = new opts.PathUI();
+        that.pathLayer = new opts.PathUI({
+					tileSize: that.offset
+				});
         that.base.x = that.offset.x;
         that.base.y = that.offset.y;
         that.stage.addChild(that.base, that.pathLayer.graphics, that.tileDown);
@@ -124,6 +126,7 @@
 					}
 				}else{
 					//TODO: Add alternate mouse UI when hovering to the sidebar
+					this.tileDown.alpha = 0;
 				}
 
 
@@ -143,6 +146,8 @@
 				if(this.isInBoundary(col, row + 1)){
 					this.onClickedOnMap(col, row + 1);
 					createjs.Tween.get(this.tileDown, {override: true}).to({alpha: 0}, 500);
+				}else{
+					this.tileDown.alpha = 0;
 				}
 
       }
@@ -156,10 +161,17 @@
         
       }
 
+			this.doMove = function(moveIndex){
+
+			}
+
+			this.renderPath = function(moveList){
+				this.pathLayer.activate(moveList);
+			}
+
 			this.isInBoundary = function(col, row){
 				var mapRows = this.map.length;
 				var mapCols = this.map[0].length;
-				console.log("Map has: " + mapRows + "," + mapCols);
 
 				if(row < 0 || row > mapRows-1){
 					return false;
@@ -180,7 +192,7 @@
   }());
 
   angular.module('myApp.directives').
-  directive('game', ['BaseBoard', 'PathUI', function(BaseBoard, PathUI){
+  directive('game', ['BaseBoard', 'PathUI', 'AppRegistry', function(BaseBoard, PathUI, AppRegistry){
     return {
       restrict: 'E',
       transclude : true,
@@ -206,6 +218,16 @@
 				_m.onHoverMapChanged = function(x, y){
 					scope.$emit('onMouseOverMapChanged', x, y);
 				}
+
+				scope.$on('handleBroadcast[moveList]', function(){
+					console.log("It's working here, ", AppRegistry.moveList);
+					_m.renderPath(AppRegistry.moveList);
+				});
+
+				scope.$on('handleBroadcast[moveIndex]', function(){
+					console.log("It's working on this end too", AppRegistry.moveIndex);
+					_m.doMove(AppRegistry.moveIndex);
+				});
 
         elm.width(window.innerWidth);
         elm.height(window.innerHeight);
