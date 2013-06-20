@@ -14,7 +14,7 @@
 				initialize: function(opts){
 					//create a few tiles
 					var that = this;
-					for(var i = 0; i < 32; i++){
+					for(var i = 0; i < 120; i++){
 						var tile = {
 							row: 0,
 							col: 0,
@@ -24,9 +24,13 @@
 								this.row = row;
 								this.col = col;
 
-								this.graphics.x = this.col * that.tileSize.x;
+								this.graphics.x = this.col * that.tileSize.x + that.tileSize.x;
 								this.graphics.y = this.row * that.tileSize.y;
 								this.graphics.alpha = .3;
+								createjs.Tween.get(this.graphics, {override: true}).to({alpha:.3}, 300);
+							},
+							hide: function(){
+								createjs.Tween.get(this.graphics, {override: true}).to({alpha: 0}, 300);
 							}
 						};
 
@@ -50,8 +54,14 @@
 					}
 				},
 				activate: function(pathList){
-					for(var i = 0; i < pathList.length; i++){
-						this.tiles[i].setPosition(pathList[i].row, pathList[i].col);
+					console.log('Rendering first element: ', pathList[0]);
+					for(var i = 0; i < this.tiles.length; i++){
+						if(pathList[i]){
+							this.tiles[i].setPosition(pathList[i].row, pathList[i].col);
+						}else{
+							this.tiles[i].hide();
+						}
+
 					}
 				},
 				deactivate: function(){
