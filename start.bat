@@ -6,4 +6,4 @@ set REDIS_PORT=6379
 set REDIS_PASS=testpass
 
 ECHO Starting Game Server...
-node --debug server.js
+nodemon --debug server.js

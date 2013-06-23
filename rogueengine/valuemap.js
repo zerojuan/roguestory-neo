@@ -11,7 +11,8 @@
 		'door_close' : 'J',
 		'down_stairs' : 'K',
 		'up_stairs' : 'L',
-		'big_grass' : 'M'
+		'big_grass' : 'M',
+		'little_grass' : 'X'
 	}
 
 }(typeof module === 'undefined' ? this.ValueMap = {} : module ));

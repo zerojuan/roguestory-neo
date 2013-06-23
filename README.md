@@ -17,4 +17,5 @@ Change in L:15462
 
 Copyright © 2013 tusongtupa
 
-Distributed under the Eclipse Public License, the same as Clojure.
+
+
