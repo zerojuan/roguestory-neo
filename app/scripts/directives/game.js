@@ -7,6 +7,7 @@
       {src : 'img/tileset.png', id: 'tileset'}
     ];
     function PrivateGameModel(opts){
+			console.log("HEY I AM THE PRIVATE GAME MODEL");
       var that = this;
       this.canvas = opts.canvas;
       this.stage = new createjs.Stage(this.canvas);
@@ -61,7 +62,7 @@
         that.assets.push(evt);
       }
       this.loader.onComplete = function(evt){
-        console.log("Complete", that.assets);
+        console.log("Complete Loader:", that.assets);
         for(var i = 0; i < that.assets.length; i++){
           var item = that.assets[i].item;
           var id = item.id;
@@ -166,7 +167,10 @@
 			}
 
 			this.renderPath = function(moveList){
-				this.pathLayer.activate(moveList);
+				if(this.pathLayer){
+					this.pathLayer.activate(moveList);
+				}
+
 			}
 
 			this.isInBoundary = function(col, row){
@@ -220,12 +224,12 @@
 				}
 
 				scope.$on('handleBroadcast[moveList]', function(){
-					console.log("It's working here, ", AppRegistry.moveList);
+					//console.log("It's working here, ", AppRegistry.moveList);
 					_m.renderPath(AppRegistry.moveList);
 				});
 
 				scope.$on('handleBroadcast[moveIndex]', function(){
-					console.log("It's working on this end too", AppRegistry.moveIndex);
+					//console.log("It's working on this end too", AppRegistry.moveIndex);
 					_m.doMove(AppRegistry.moveIndex);
 				});
 

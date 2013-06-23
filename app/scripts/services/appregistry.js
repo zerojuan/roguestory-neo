@@ -31,7 +31,7 @@ angular.module('myApp.services').
 
 
 		AppRegistry.prepForBroadcast = function(property, msg){
-			console.log('Saving Property: ', property, msg);
+			//console.log('Saving Property: ', property, msg);
 			this[property] = msg;
 			this.broadcastItem(property);
 		}

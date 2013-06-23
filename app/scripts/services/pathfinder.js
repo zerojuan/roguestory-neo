@@ -30,7 +30,7 @@ angular.module('myApp.services').
 					currBlock.col++;
 				}
 			}
-			console.log(path[0]);
+			//console.log(path[0]);
 
 			//return an array of paths
 			return path;
