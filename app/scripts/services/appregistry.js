@@ -7,8 +7,8 @@ angular.module('myApp.services').
 
 		AppRegistry.map = null;
 		AppRegistry.playerPosition = {
-			x: 0,
-			y: 0
+			row: 0,
+			col: 0
 		};
 		AppRegistry.loggedInUser = null;
 		AppRegistry.ValueMap = {
@@ -25,7 +25,7 @@ angular.module('myApp.services').
 			'up_stairs' : 'L',
 			'big_grass' : 'M'
 		};
-
+		AppRegistry.playerIsMoving = false;
 		AppRegistry.moveList = [];
 		AppRegistry.moveIndex = 0;
 

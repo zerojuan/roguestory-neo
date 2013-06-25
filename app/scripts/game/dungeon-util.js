@@ -280,23 +280,23 @@
 				var position = null;
 				switch(entrance.d){
 					case 'E': position = {
-								x: entrance.x - 1,
-								y: entrance.y
+								col: entrance.x - 1,
+								row: entrance.y
 							};
 							break;
 					case 'W': position = {
-								x: entrance.x + 1,
-								y: entrance.y
+								col: entrance.x + 1,
+								row: entrance.y
 							};
 							break;
 					case 'N': position = {
-								x: entrance.x,
-								y: entrance.y + 1
+								col: entrance.x,
+								row: entrance.y + 1
 							};
 							break;
 					case 'S': position = {
-								x: entrance.x,
-								y: entrance.y - 1
+								col: entrance.x,
+								row: entrance.y - 1
 							};
 							break;
 				}

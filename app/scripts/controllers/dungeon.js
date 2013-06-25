@@ -23,9 +23,13 @@ function DungeonController($scope, $http, $location, authService, AppRegistry, D
 				DungeonUtil.renderEntrance(room, $scope.map);
 				var playerPosition = DungeonUtil.getHeroEntrancePosition(room);
 				AppRegistry.prepForBroadcast('playerPosition', playerPosition);
-				$scope.map[playerPosition.y][playerPosition.x] = {
-					val: AppRegistry.ValueMap['hero'],
-					material: 'HERO_NORMAL'
+				$scope.map[playerPosition.row][playerPosition.col] = {
+					val : '`',
+					material: 'EARTH',
+					object : {
+						val: AppRegistry.ValueMap['hero'],
+						material: 'HERO_NORMAL'
+					}
 				}
 			}
 		}

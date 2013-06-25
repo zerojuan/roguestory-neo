@@ -3,12 +3,15 @@
 <div ng-show="loggedIn" id="home-holder">
 	<div class="hud">
 		<div class="navbar">
-		({{selectedTile.x}},{{selectedTile.y}})
-		{{playerPosition.x}},{{playerPosition.y}}
+		({{selectedTile.col}},{{selectedTile.row}})
+		{{playerPosition.col}},{{playerPosition.row}}
 		{{user.username}}<a ng-click="logout()">Logout</a>
 		</div>
 	</div>
 	<div ng-controller="DungeonController">		
-		<game map="map"></game>		
+		<game
+			map="map"
+			player-position="playerPosition">
+		</game>
 	</div>	
 </div>

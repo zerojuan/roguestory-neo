@@ -43,7 +43,10 @@
 							var val = this.map[x][y];
 							if(val.val == '0'){
 								continue;
+							}else if(val.object){ //if this tile has an object on top, render that object
+								val = val.object;
 							}
+
 							var t = val.tint;
 							ctx.font = '13pt Conv_roguestoryneo';
 							var fillStyle = _getColorFromMaterial(val.material, val.strength);
@@ -61,7 +64,7 @@
 							//ctx.drawImage(img, val.val * this.tileWidth, 0, this.tileWidth, this.tileHeight, 
 							//	y * this.tileWidth, x * this.tileHeight, this.tileWidth, this.tileHeight );						
 							if(val.val == 'E' && this.map[x+1][y].val == 'E'){
-								ctx.fillText('H', y * this.tileWidth, x * this.tileHeight);
+								ctx.fillText('H', y * this.tileWidth, x * this.tileHeight); //horizontal walls
 							}else{
 								ctx.fillText(val.val, y * this.tileWidth, x * this.tileHeight);
 							}

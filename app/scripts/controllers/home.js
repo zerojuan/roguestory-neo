@@ -1,8 +1,8 @@
 'use strict';
 
-function HomeController($scope, $http, $location, authService, AppRegistry, PathFinder){
+function HomeController($scope, $http, $location, $timeout, authService, AppRegistry, PathFinder){
 	$scope.loggedIn = false;
-	$scope.selectedTile = {x: 5, y: 5};
+	$scope.selectedTile = {row: 5, col: 5};
 	$scope.playerPosition = AppRegistry.playerPosition;
 
 	$http.get('/home').success(function(data){
@@ -22,6 +22,8 @@ function HomeController($scope, $http, $location, authService, AppRegistry, Path
 
 	$scope.$on('handleBroadcast[playerPosition]', function(){
 		$scope.playerPosition = AppRegistry.playerPosition;
+		$scope.$apply();
+		console.log("PlayerPosition has changed");
 	});
 
 	$scope.$on('handleBroadcast[map]', function(){
@@ -30,27 +32,44 @@ function HomeController($scope, $http, $location, authService, AppRegistry, Path
 		//Service takes care of identifying the tiles based on the [map] and values
 	});
 
-	$scope.$on('onClickedOnMap', function(evt, x, y){
-		$scope.selectedTile.x = x;
-		$scope.selectedTile.y = y;
+	$scope.$on('onClickedOnMap', function(evt, col, row){
+		$scope.selectedTile.col = col;
+		$scope.selectedTile.row = row;
 
-	  //TODO: execute path movement
-		//broadcast to appregistry??
-		AppRegistry.prepForBroadcast('moveIndex', 0);
+		if(AppRegistry.playerIsMoving){
+			return;
+		}
 
+		var currIndex = 0;
+		var doMove = function(){
+			var currMove = AppRegistry.moveList[currIndex];
 
-		$scope.$apply();
+			if(currMove){ //a move exists
+				AppRegistry.prepForBroadcast('playerPosition', currMove);
+				currIndex++;
+				$timeout(doMove, 50);
+			}else{
+				AppRegistry.prepForBroadcast('playerIsMoving', false);
+				return;
+			}
+		}
+		AppRegistry.prepForBroadcast('playerIsMoving', true);
+		doMove();
 	});
 
 
-	$scope.$on('onMouseOverMapChanged', function(evt, x, y){
-		$scope.selectedTile.x = x;
-		$scope.selectedTile.y = y;
+	$scope.$on('onMouseOverMapChanged', function(evt, col, row){
+		$scope.selectedTile.col = col;
+		$scope.selectedTile.row = row;
+
+		if(AppRegistry.playerIsMoving){
+			return;
+		}
 
 		//TODO: create a service for converting tiledata to description
 
-		var path = PathFinder.findPath({row: $scope.playerPosition.y, col: $scope.playerPosition.x},
-												{row: y, col: x}, AppRegistry.map);
+		var path = PathFinder.findPath({row: $scope.playerPosition.row, col: $scope.playerPosition.col},
+												{row: row, col: col}, AppRegistry.map);
 		AppRegistry.prepForBroadcast('moveList', path);
 		//TODO: create path renderer
 
@@ -67,4 +86,4 @@ function HomeController($scope, $http, $location, authService, AppRegistry, Path
 
 	$scope.$on('')
 }
-HomeController.$inject = ['$scope', '$http', '$location', 'authService', 'AppRegistry', 'PathFinder'];
+HomeController.$inject = ['$scope', '$http', '$location', '$timeout', 'authService', 'AppRegistry', 'PathFinder'];

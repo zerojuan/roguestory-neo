@@ -162,7 +162,15 @@
         
       }
 
-			this.doMove = function(moveIndex){
+			this.doMove = function(newValue, oldValue){
+
+				this.map[newValue.row][newValue.col].object = {
+					material: "HERO_NORMAL",
+					pulse: NaN,
+					val: "A"
+				};
+
+				this.map[oldValue.row][oldValue.col].object = null;
 
 			}
 
@@ -204,7 +212,8 @@
       template : '<canvas ng-transclude>Test'+
       '</canvas>',
       scope : {
-        "map" : "=map"
+        "map" : "=map",
+				"playerPosition" : "=playerPosition"
       },
       link : function(scope, elm, attrs){
 
@@ -212,7 +221,7 @@
           canvas: elm[0],
           map: scope.map,
           BaseBoard: BaseBoard,
-          PathUI: PathUI        
+          PathUI: PathUI
         });
 
         _m.onClickedOnMap = function(x, y){
@@ -228,9 +237,10 @@
 					_m.renderPath(AppRegistry.moveList);
 				});
 
-				scope.$on('handleBroadcast[moveIndex]', function(){
-					//console.log("It's working on this end too", AppRegistry.moveIndex);
-					_m.doMove(AppRegistry.moveIndex);
+				scope.$watch('playerPosition', function(newValue, oldValue){
+					console.log("New Value: ", newValue);
+					console.log("Old Value: ", oldValue);
+					_m.doMove(newValue, oldValue);
 				});
 
         elm.width(window.innerWidth);
