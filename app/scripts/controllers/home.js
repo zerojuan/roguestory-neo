@@ -54,7 +54,10 @@ function HomeController($scope, $http, $location, $timeout, authService, AppRegi
 			}
 		}
 		AppRegistry.prepForBroadcast('playerIsMoving', true);
-		doMove();
+		if(AppRegistry.moveList){
+			doMove();
+		}
+
 	});
 
 
@@ -70,12 +73,16 @@ function HomeController($scope, $http, $location, $timeout, authService, AppRegi
 
 		var path = PathFinder.findPath({row: $scope.playerPosition.row, col: $scope.playerPosition.col},
 												{row: row, col: col}, AppRegistry.map);
-		AppRegistry.prepForBroadcast('moveList', path);
-		//TODO: create path renderer
+		if(path){
+			AppRegistry.prepForBroadcast('moveList', path);
+			//TODO: create path renderer
+			$scope.$apply();
+		}else{
+			AppRegistry.moveList = null;
+		}
 
-		$scope.$apply();
 	});
-	
+
 	$scope.logout = function(){
 		$http.post('auth/logout').success(function(){
 			$scope.isLoggedIn = false;

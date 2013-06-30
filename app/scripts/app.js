@@ -1,5 +1,21 @@
 'use strict';
 
+////Taken from http://will.thimbleby.net/astar.js
+//Array.prototype.insertSorted = function(v, sortFn){
+//	if(this.length < 1 || sortFn(v, this[this.length-1]) >= 0) {
+//		this.push(v);
+//		return this;
+//	}
+//	for(var i=this.length-2; i>=0; --i) {
+//		if(sortFn(v, this[i]) >= 0) {
+//			this.splice(i+1, 0, v);
+//			return this;
+//		}
+//	}
+//	this.splice(0, 0, v);
+//	return this;
+//}
+
 angular.module('myApp.services', []);
 
 angular.module('myApp.gameModule', ['myApp.services']);

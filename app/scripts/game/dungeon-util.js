@@ -149,7 +149,8 @@
 						if(score>0){					
 							map[row][col] = {
 								val: AppRegistry.ValueMap['wall'],
-								material: 'STONE'
+								material: 'STONE',
+								solid: true
 							}	
 						}
 						
@@ -165,7 +166,8 @@
 							(j==data.y || j==data.y+data.height-1)){
 							val = {
 								val : AppRegistry.ValueMap['wall'],
-								material: 'STONE'											
+								material: 'STONE',
+								solid: true
 							}
 						}else{
 							val = {
@@ -247,12 +249,14 @@
 							val = {
 								val : AppRegistry.ValueMap['wall'],
 								material: 'STONE',
+								solid: true,
 								strength: Math.random()
 							}
 						}else if(j == data.y || j==data.y+data.height-1){
 							val = {
 								val : AppRegistry.ValueMap['wall'],
 								material: 'STONE',
+								solid: true,
 								strength: Math.random()
 							}
 						}else{

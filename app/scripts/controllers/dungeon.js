@@ -4,6 +4,7 @@ function DungeonController($scope, $http, $location, authService, AppRegistry, D
 	$scope.map = [];
 
 	$http.get('/dungeon').success(function(data){
+		console.log("GOTTEN THE DUNGEON!");
 		$scope.map = [];
 		for(var y = 0; y < data.height; y++){
 			$scope.map[y] = [];
@@ -22,7 +23,6 @@ function DungeonController($scope, $http, $location, authService, AppRegistry, D
 			}else if(room.type == 'entrance'){
 				DungeonUtil.renderEntrance(room, $scope.map);
 				var playerPosition = DungeonUtil.getHeroEntrancePosition(room);
-				AppRegistry.prepForBroadcast('playerPosition', playerPosition);
 				$scope.map[playerPosition.row][playerPosition.col] = {
 					val : '`',
 					material: 'EARTH',
@@ -46,7 +46,9 @@ function DungeonController($scope, $http, $location, authService, AppRegistry, D
 		DungeonUtil.removeHangingDoors($scope.map);
 
 		//tell the rest of the app that a map is ready
+		console.log("I AM PREPPING FOR BROADCAST");
 		AppRegistry.prepForBroadcast('map', $scope.map);
+		AppRegistry.prepForBroadcast('playerPosition', playerPosition);
 	});
 }
 DungeonController.$inject = ['$scope', '$http', '$location', 'authService', 'AppRegistry', 'DungeonUtil'];

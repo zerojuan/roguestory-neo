@@ -163,6 +163,8 @@
       }
 
 			this.doMove = function(newValue, oldValue){
+				console.log("MAP", this.map);
+				if(!this.map || this.map.length == 0) return;
 
 				this.map[newValue.row][newValue.col].object = {
 					material: "HERO_NORMAL",
@@ -240,7 +242,10 @@
 				scope.$watch('playerPosition', function(newValue, oldValue){
 					console.log("New Value: ", newValue);
 					console.log("Old Value: ", oldValue);
+
 					_m.doMove(newValue, oldValue);
+
+
 				});
 
         elm.width(window.innerWidth);
