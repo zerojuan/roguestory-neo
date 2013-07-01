@@ -4,17 +4,16 @@ angular.module('myApp.services').
 	factory('PathFinder', ['$rootScope', function($rootScope){
 		var PathFinder = {};
 
-		//TODO: First, use A*
-		//TODO: then optimize with jump point search
+		//TODO: optimize with jump point search
 		PathFinder.findPath = function(start, end, map){
 			var diagonalCost = 14;
 			var sortByScore = function(a, b){
 				if(a.f > b.f){
-					return 1;
+					return -1;
 				}else if(a.f == b.f){
 					return 0;
 				}else if(a.f < b.f){
-					return -1;
+					return 1;
 				}
 
 				return 0;
@@ -24,22 +23,21 @@ angular.module('myApp.services').
 				var b = end;
 
 				//DotTieBreaker
-				//var dx1 = a.col - b.col;
-				//var dy1 = a.row - b.row;
-				//var dx2 = start.col - b.col;
-				//var dy2 = start.row - b.row;
-				var cross = 0; //Math.abs(dx1*dy2 - dx2*dy1);
+				var dx1 = a.col - b.col;
+				var dy1 = a.row - b.row;
+				var dx2 = start.col - b.col;
+				var dy2 = start.row - b.row;
+				var cross = Math.abs(dx1*dy2 - dx2*dy1);
 
 				var straight = Math.abs(Math.abs(a.col - b.col) - Math.abs(a.row - b.row));
 				var diagonal = Math.max(Math.abs(a.col - b.col), Math.abs(a.row- b.row)) - straight;
 				return straight + diagonalCost*diagonal + cross*0.001;
 			}
 			var getMovementCost = function(current, neighbor){
-				var diagonal = neighbor.pos.row != current.pos.row && neighbor.pos.col != neighbor.pos.col;
-				return (diagonal?diagonalCost:10);
+				var diagonal = (neighbor.pos.row != current.pos.row && neighbor.pos.col != current.pos.col);
+				return (diagonal ? diagonalCost : 10);
 			}
 			var getNeighbors = function(node){
-				console.log("MAP: ", map);
 				var n = [];
 				var dir = [[0,1], [0,-1], [1,0], [-1,0], [1,1], [-1,1], [1,-1], [-1,-1]];
 				for(var i=0; i < 8; i++){
@@ -64,7 +62,7 @@ angular.module('myApp.services').
 				for(var i = 0; i < array.length; i++){
 					var item = array[i];
 					if(item.pos.col == node.pos.col && item.pos.row == node.pos.row){
-						return true;
+						return item;
 					}
 				}
 
@@ -107,13 +105,13 @@ angular.module('myApp.services').
 						var neighborFromOpen = getOldValue(neighbor, OPEN);
 						var neighborFromClosed = getOldValue(neighbor, CLOSED);
 //					if neighbor in OPEN and cost less than g(neighbor):
-						if(neighborFromOpen && neighborFromClosed.g < cost){
+						if(neighborFromOpen && neighborFromOpen.g > cost){
 //						remove neighbor from OPEN, because new path is better
 							removeValue(neighborFromOpen, OPEN);
 							neighborFromOpen = null;
 						}
 //					if neighbor in CLOSED and cost less than g(neighbor): **
-						if(neighborFromClosed && neighborFromClosed.g < cost){
+						if(neighborFromClosed && neighborFromClosed.g > cost){
 //						remove neighbor from CLOSED
 							removeValue(neighborFromClosed, CLOSED);
 							neighborFromClosed = null;
@@ -123,21 +121,20 @@ angular.module('myApp.services').
 //						set g(neighbor) to cost
 							neighbor.g = cost;
 //						add neighbor to OPEN
-							OPEN.push(neighbor);
-							OPEN.sort(sortByScore);
 //						set priority queue rank to g(neighbor) + h(neighbor)
 							neighbor.h = getH(neighbor);
 							neighbor.f = neighbor.g + neighbor.h;
 //						set neighbor's parent to current
 							neighbor.parent = current;
+							OPEN.push(neighbor);
+							OPEN.sort(sortByScore);
 						}
 
 					}
 
 			}
-//
-//			reconstruct reverse path from goal to start
-//			by following parent pointers
+
+//		reconstruct reverse path from goal to start
 			if(pathFound){
 				console.log("Path found!");
 				var path = [];
@@ -146,7 +143,6 @@ angular.module('myApp.services').
 					var current = current.parent;
 					path.push(current.pos);
 				}
-
 				path.reverse();
 
 				return path;

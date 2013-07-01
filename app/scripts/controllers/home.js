@@ -9,7 +9,7 @@ function HomeController($scope, $http, $location, $timeout, authService, AppRegi
 		$scope.loggedIn = true;
 		$scope.message = data.message;
 		$scope.user = data.user;
-		console.log('ValueMap: ', data);
+//		console.log('ValueMap: ', data);
 		AppRegistry.ValueMap = data.valueMap;
 		$http.defaults.headers.common['Auth-Token'] = 'my-token-so';
 		authService.loginConfirmed();
@@ -36,19 +36,19 @@ function HomeController($scope, $http, $location, $timeout, authService, AppRegi
 		$scope.selectedTile.col = col;
 		$scope.selectedTile.row = row;
 
-		if(AppRegistry.playerIsMoving){
+		if(AppRegistry.playerIsMoving || !AppRegistry.moveList){
 			return;
 		}
 
 		var currIndex = 0;
 		var doMove = function(){
 			var currMove = AppRegistry.moveList[currIndex];
-
 			if(currMove){ //a move exists
 				AppRegistry.prepForBroadcast('playerPosition', currMove);
 				currIndex++;
 				$timeout(doMove, 50);
 			}else{
+				AppRegistry.prepForBroadcast('moveList', null);
 				AppRegistry.prepForBroadcast('playerIsMoving', false);
 				return;
 			}
@@ -73,13 +73,12 @@ function HomeController($scope, $http, $location, $timeout, authService, AppRegi
 
 		var path = PathFinder.findPath({row: $scope.playerPosition.row, col: $scope.playerPosition.col},
 												{row: row, col: col}, AppRegistry.map);
-		if(path){
+//		if(path){
 			AppRegistry.prepForBroadcast('moveList', path);
-			//TODO: create path renderer
 			$scope.$apply();
-		}else{
-			AppRegistry.moveList = null;
-		}
+//		}else{
+//			AppRegistry.moveList = null;
+//		}
 
 	});
 

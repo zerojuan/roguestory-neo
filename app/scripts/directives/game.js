@@ -163,7 +163,6 @@
       }
 
 			this.doMove = function(newValue, oldValue){
-				console.log("MAP", this.map);
 				if(!this.map || this.map.length == 0) return;
 
 				this.map[newValue.row][newValue.col].object = {
