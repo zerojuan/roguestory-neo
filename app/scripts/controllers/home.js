@@ -37,13 +37,14 @@ function HomeController($scope, $http, $location, $timeout, authService, AppRegi
 		$scope.selectedTile.row = row;
 
 		if(AppRegistry.playerIsMoving || !AppRegistry.moveList){
+			AppRegistry.playerIsMoving = false;
 			return;
 		}
 
 		var currIndex = 0;
 		var doMove = function(){
 			var currMove = AppRegistry.moveList[currIndex];
-			if(currMove){ //a move exists
+			if(currMove && AppRegistry.playerIsMoving){ //a move exists
 				AppRegistry.prepForBroadcast('playerPosition', currMove);
 				currIndex++;
 				$timeout(doMove, 50);
