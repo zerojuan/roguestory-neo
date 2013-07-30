@@ -9,7 +9,6 @@ function HomeController($scope, $http, $location, $timeout, authService, AppRegi
 		$scope.loggedIn = true;
 		$scope.message = data.message;
 		$scope.user = data.user;
-//		console.log('ValueMap: ', data);
 		AppRegistry.ValueMap = data.valueMap;
 		$http.defaults.headers.common['Auth-Token'] = 'my-token-so';
 		authService.loginConfirmed();
@@ -23,7 +22,7 @@ function HomeController($scope, $http, $location, $timeout, authService, AppRegi
 	$scope.$on('handleBroadcast[playerPosition]', function(){
 		$scope.playerPosition = AppRegistry.playerPosition;
 		$scope.$apply();
-		console.log("PlayerPosition has changed");
+		console.log("PlayerPosition has changed", $scope.playerPosition);
 	});
 
 	$scope.$on('handleBroadcast[map]', function(){
@@ -37,6 +36,7 @@ function HomeController($scope, $http, $location, $timeout, authService, AppRegi
 		$scope.selectedTile.row = row;
 
 		if(AppRegistry.playerIsMoving || !AppRegistry.moveList){
+			console.log('Player is Moving: ' + AppRegistry.playerIsMoving + ' or Movelist doesn\'t exist: ' + AppRegistry.moveList);
 			AppRegistry.playerIsMoving = false;
 			return;
 		}
@@ -45,15 +45,18 @@ function HomeController($scope, $http, $location, $timeout, authService, AppRegi
 		var doMove = function(){
 			var currMove = AppRegistry.moveList[currIndex];
 			if(currMove && AppRegistry.playerIsMoving){ //a move exists
+				console.log("Do Move!");
 				AppRegistry.prepForBroadcast('playerPosition', currMove);
 				currIndex++;
 				$timeout(doMove, 50);
 			}else{
+				console.log('Setting movelist to null...', currMove, AppRegistry.playerIsMoving, AppRegistry.moveList);
 				AppRegistry.prepForBroadcast('moveList', null);
 				AppRegistry.prepForBroadcast('playerIsMoving', false);
 				return;
 			}
 		}
+
 		AppRegistry.prepForBroadcast('playerIsMoving', true);
 		if(AppRegistry.moveList){
 			doMove();

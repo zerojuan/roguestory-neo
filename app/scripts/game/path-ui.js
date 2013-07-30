@@ -58,7 +58,10 @@
 				},
 				activate: function(pathList){
 					//console.log('Rendering first element: ', pathList[0]);
-					console.log(pathList);
+					if(!pathList){
+						console.log("Pathlist is :", pathList);
+					}
+
 					for(var i = 0; i < this.tiles.length; i++){
 						if(pathList && pathList[i]){
 							this.tiles[i].setPosition(pathList[i].row, pathList[i].col);
