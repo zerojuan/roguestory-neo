@@ -28,7 +28,8 @@ function DungeonController($scope, $http, $location, authService, AppRegistry, D
 					material: 'EARTH',
 					object : {
 						val: AppRegistry.ValueMap['hero'],
-						material: 'HERO_NORMAL'
+						material: 'HERO_NORMAL',
+						visibility: 1
 					}
 				}
 			}
@@ -47,8 +48,8 @@ function DungeonController($scope, $http, $location, authService, AppRegistry, D
 
 		//tell the rest of the app that a map is ready
 		console.log("I AM PREPPING FOR BROADCAST");
-		AppRegistry.prepForBroadcast('map', $scope.map);
 		AppRegistry.prepForBroadcast('playerPosition', playerPosition);
+		AppRegistry.prepForBroadcast('map', $scope.map);
 	});
 }
 DungeonController.$inject = ['$scope', '$http', '$location', 'authService', 'AppRegistry', 'DungeonUtil'];

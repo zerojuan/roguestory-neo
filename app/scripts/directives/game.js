@@ -194,7 +194,8 @@
 					this.map[newValue.row][newValue.col].object = {
 						material: "HERO_NORMAL",
 						pulse: NaN,
-						val: "A"
+						val: "A",
+						visibility: 1
 					};
 
 					this.map[oldValue.row][oldValue.col].object = null;
@@ -253,7 +254,6 @@
 				var _m = GameModel;
 
         _m.onClickedOnMap = function(x, y){
-					console.log("EMITTING ON CLICKED ON MAP!");
           scope.$emit('onClickedOnMap', x, y);
         }
 
@@ -262,18 +262,14 @@
 				}
 
 				scope.$on('handleBroadcast[moveList]', function(){
-					//console.log("It's working here, ", AppRegistry.moveList);
 					_m.renderPath(AppRegistry.moveList);
 				});
 
 				scope.$watch('playerPosition', function(newValue, oldValue){
-					console.log("New Value: ", newValue);
-					console.log("Old Value: ", oldValue);
-
+//					console.log("New Value: ", newValue);
+//					console.log("Old Value: ", oldValue);
 					_m.doMove(newValue, oldValue);
-
-
-				}, true);
+				});
 
         elm.width(window.innerWidth);
         elm.height(window.innerHeight);

@@ -53,11 +53,20 @@
 							//console.log(fillStyle);
 							ctx.fillStyle = fillStyle;
 							//ctx.fillRect(y * this.tileWidth, x * this.tileHeight, this.tileWidth, this.tileHeight);
-							if(val.pulse){
-								ctx.globalAlpha = val.pulse;
+
+							if(val.visibility == 1){
+								if(val.pulse){
+									ctx.globalAlpha = val.pulse;//val.pulse;
+								}else{
+									ctx.globalAlpha = val.visibility;
+								}
 							}else{
-								ctx.globalAlpha = 1;
+								ctx.globalAlpha = val.visibility;
 							}
+
+
+
+
 							
 							//ctx.fillStyle = 'rgba('+t.r+','+t.g+','+t .b+',1)';
 							//ctx.globalCompositeOperation = 'destination-atop';							

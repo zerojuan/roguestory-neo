@@ -1,6 +1,6 @@
 'use strict';
 
-function HomeController($scope, $http, $location, $timeout, authService, AppRegistry, PathFinder){
+function HomeController($scope, $http, $location, $timeout, authService, AppRegistry, PathFinder, LineOfSight){
 	$scope.loggedIn = false;
 	$scope.selectedTile = {row: 5, col: 5};
 	$scope.playerPosition = AppRegistry.playerPosition;
@@ -27,7 +27,9 @@ function HomeController($scope, $http, $location, $timeout, authService, AppRegi
 
 	$scope.$on('handleBroadcast[map]', function(){
 		//MAP IS READY
-
+		console.log('MAP IS READY!');
+		console.log('Player Position: ', AppRegistry.playerPosition);
+		LineOfSight.doLOS(AppRegistry.playerPosition, 5, AppRegistry.map);
 		//Service takes care of identifying the tiles based on the [map] and values
 	});
 
@@ -44,13 +46,12 @@ function HomeController($scope, $http, $location, $timeout, authService, AppRegi
 		var currIndex = 0;
 		var doMove = function(){
 			var currMove = AppRegistry.moveList[currIndex];
+			LineOfSight.doLOS(currMove, 5, AppRegistry.map);
 			if(currMove && AppRegistry.playerIsMoving){ //a move exists
-				console.log("Do Move!");
 				AppRegistry.prepForBroadcast('playerPosition', currMove);
 				currIndex++;
 				$timeout(doMove, 50);
 			}else{
-				console.log('Setting movelist to null...', currMove, AppRegistry.playerIsMoving, AppRegistry.moveList);
 				AppRegistry.prepForBroadcast('moveList', null);
 				AppRegistry.prepForBroadcast('playerIsMoving', false);
 				return;
@@ -70,6 +71,10 @@ function HomeController($scope, $http, $location, $timeout, authService, AppRegi
 		$scope.selectedTile.row = row;
 
 		if(AppRegistry.playerIsMoving){
+			return;
+		}
+
+		if(AppRegistry.map[row][col].visibility == 0){
 			return;
 		}
 
@@ -96,4 +101,4 @@ function HomeController($scope, $http, $location, $timeout, authService, AppRegi
 
 	$scope.$on('')
 }
-HomeController.$inject = ['$scope', '$http', '$location', '$timeout', 'authService', 'AppRegistry', 'PathFinder'];
+HomeController.$inject = ['$scope', '$http', '$location', '$timeout', 'authService', 'AppRegistry', 'PathFinder', 'LineOfSight'];

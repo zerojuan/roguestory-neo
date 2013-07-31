@@ -5,6 +5,11 @@
 		.factory('DungeonUtil', ['AppRegistry', function(AppRegistry){
 			var DungeonUtil = {};
 
+			DungeonUtil.isGround = function(coord, map){
+				var mapVal = map[coord.row][coord.col];
+				return (mapVal.val == AppRegistry.ValueMap['door_open']) || (mapVal.material == 'EARTH');
+			}
+
 			DungeonUtil.removeDoubleDoors = function(map){
 				var marked = [];
 				for(var row = 0; row < map.length; row++){
@@ -39,7 +44,8 @@
 				angular.forEach(marked, function(value){
 					map[value.row][value.col] = {
 						val : '`',
-						material: 'EARTH'
+						material: 'EARTH',
+						visibility: 0
 					}
 				});
 			}
@@ -76,7 +82,8 @@
 				angular.forEach(marked, function(value){
 					map[value.row][value.col] = {
 						val : '`',
-						material: 'EARTH'
+						material: 'EARTH',
+						visibility: 0
 					}
 				});
 			}
@@ -91,7 +98,8 @@
 								//console.log("BOTTOM-MID");
 								map[row][col] = {
 									val: '.',
-									material: 'EARTH'
+									material: 'EARTH',
+									visibility: 0
 								}
 							}
 							if(col+1 < map[row].length && map[row][col+1].val == doorClose){
@@ -99,7 +107,8 @@
 								//console.log("MID_RIGHT");
 								map[row][col] = {
 									val: AppRegistry.ValueMap['stone'],
-									material: 'EARTH'
+									material: 'EARTH',
+									visibility: 0
 								}
 							}
 						}
@@ -150,7 +159,8 @@
 							map[row][col] = {
 								val: AppRegistry.ValueMap['wall'],
 								material: 'STONE',
-								solid: true
+								solid: true,
+								visibility: 0
 							}	
 						}
 						
@@ -167,12 +177,14 @@
 							val = {
 								val : AppRegistry.ValueMap['wall'],
 								material: 'STONE',
-								solid: true
+								solid: true,
+								visibility: 0
 							}
 						}else{
 							val = {
 								val : '`',
-								material: 'EARTH'
+								material: 'EARTH',
+								visibility: 0
 							}
 						}
 						map[j][i] = val;
@@ -180,7 +192,8 @@
 				}
 				var entrance = {
 					val : AppRegistry.ValueMap['up_stairs'],
-					material : 'STONE'
+					material : 'STONE',
+					visibility: 0
 				};
 				map[data.entrance.y][data.entrance.x] = entrance;
 
@@ -188,7 +201,8 @@
 					var door = data.doors[i];
 					map[door.y][door.x] = {
 						val: AppRegistry.ValueMap['door_close'],
-						material: 'STONE'
+						material: 'STONE',
+						visibility: 0
 					}
 				}
 			}
@@ -200,7 +214,8 @@
 							//console.log("NORTH");
 							map[i][data.x] = {
 								val : '`',
-								material: 'EARTH'
+								material: 'EARTH',
+								visibility: 0
 							};
 						}
 						break;
@@ -209,7 +224,8 @@
 							//console.log("SOUTH");
 							map[i][data.x] = {
 								val: '`',
-								material: 'EARTH'
+								material: 'EARTH',
+								visibility: 0
 							}
 						}
 						break;
@@ -218,7 +234,8 @@
 							//console.log("EAST");
 							map[data.y][i] = {
 								val: '`',
-								material: 'EARTH'
+								material: 'EARTH',
+								visibility: 0
 							}
 						}
 						break;
@@ -227,7 +244,8 @@
 							//console.log("WEST");
 							map[data.y][i] = {
 								val: '`',
-								material: 'EARTH'
+								material: 'EARTH',
+								visibility: 0
 							}
 						}
 						break;
@@ -235,7 +253,8 @@
 				//if(data.type == 'room'){
 					map[data.y][data.x] = {
 						val: AppRegistry.ValueMap['door_open'],
-						material: 'STONE'
+						material: 'STONE',
+						visibility: 0
 					}	
 				//}				
 			}
@@ -250,20 +269,23 @@
 								val : AppRegistry.ValueMap['wall'],
 								material: 'STONE',
 								solid: true,
-								strength: Math.random()
+								strength: Math.random(),
+								visibility: 0
 							}
 						}else if(j == data.y || j==data.y+data.height-1){
 							val = {
 								val : AppRegistry.ValueMap['wall'],
 								material: 'STONE',
 								solid: true,
-								strength: Math.random()
+								strength: Math.random(),
+								visibility: 0
 							}
 						}else{
 							val = {
 								val : '.',
 								material: 'EARTH',
-								pulse : Math.random()						
+								pulse : Math.random(),
+								visibility: 0
 							}
 						}						
 						map[j][i] = val;				
@@ -274,7 +296,8 @@
 					var door = data.doors[i];
 					map[door.y][door.x] = {
 						val: AppRegistry.ValueMap['door_close'],
-						material: 'STONE'
+						material: 'STONE',
+						visibility: 0
 					}
 				}
 			}
