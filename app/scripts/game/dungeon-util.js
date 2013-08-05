@@ -5,9 +5,54 @@
 		.factory('DungeonUtil', ['AppRegistry', function(AppRegistry){
 			var DungeonUtil = {};
 
+			var Tile = function(){
+				this.visibility = 0;
+				this.object = null;
+				this.solid = false;
+			}
+
 			DungeonUtil.isGround = function(coord, map){
 				var mapVal = map[coord.row][coord.col];
 				return (mapVal.val == AppRegistry.ValueMap['door_open']) || (mapVal.material == 'EARTH');
+			}
+
+			DungeonUtil.createTile = function(type){
+				var tile = new Tile();
+				switch(type){
+					case 'UP_STAIRS':
+						tile.material = 'STONE';
+						tile.val = 	AppRegistry.ValueMap['up_stairs'];
+						return tile;
+					case 'WALL':
+						tile.val = AppRegistry.ValueMap['wall'];
+						tile.material = 'STONE';
+						tile.strength = Math.random();
+						tile.solid = true;
+						return tile;
+					case 'DOOR_CLOSE':
+						tile.material = 'STONE';
+						tile.val = AppRegistry.ValueMap['door_close'];
+						tile.solid = true;
+						return tile;
+					case 'DOOR_OPEN':
+						tile.material = 'STONE';
+						tile.val = AppRegistry.ValueMap['door_open'];
+						return tile;
+					case 'PULSING_GROUND':
+						tile.val = '.';
+						tile.material = 'EARTH';
+						tile.pulse = Math.random();
+						return tile;
+					case 'GROUND':
+						tile.material = 'EARTH';
+						tile.val = '.';
+						return tile;
+					case 'GROUND_STONE':
+						tile.material = 'EARTH';
+						tile.val = AppRegistry.ValueMap['stone'];
+						return tile;
+				}
+				console.log('FAAAAILLLLED');
 			}
 
 			DungeonUtil.removeDoubleDoors = function(map){
@@ -42,11 +87,7 @@
 				}
 
 				angular.forEach(marked, function(value){
-					map[value.row][value.col] = {
-						val : '`',
-						material: 'EARTH',
-						visibility: 0
-					}
+					map[value.row][value.col] = DungeonUtil.createTile('GROUND');
 				});
 			}
 
@@ -80,11 +121,7 @@
 				}
 
 				angular.forEach(marked, function(value){
-					map[value.row][value.col] = {
-						val : '`',
-						material: 'EARTH',
-						visibility: 0
-					}
+					map[value.row][value.col] = DungeonUtil.createTile('GROUND');
 				});
 			}
 
@@ -96,20 +133,12 @@
 							//check perpendicular, if it's the same
 							if(row+1 < map.length && map[row+1][col].val == doorClose){								
 								//console.log("BOTTOM-MID");
-								map[row][col] = {
-									val: '.',
-									material: 'EARTH',
-									visibility: 0
-								}
+								map[row][col] = DungeonUtil.createTile('GROUND');
 							}
 							if(col+1 < map[row].length && map[row][col+1].val == doorClose){
 								//console.log("MID-LEFT");
 								//console.log("MID_RIGHT");
-								map[row][col] = {
-									val: AppRegistry.ValueMap['stone'],
-									material: 'EARTH',
-									visibility: 0
-								}
+								map[row][col] = DungeonUtil.createTile('GROUND_STONE');
 							}
 						}
 					}
@@ -156,12 +185,7 @@
 							score++;
 						}
 						if(score>0){					
-							map[row][col] = {
-								val: AppRegistry.ValueMap['wall'],
-								material: 'STONE',
-								solid: true,
-								visibility: 0
-							}	
+							map[row][col] = DungeonUtil.createTile('WALL');
 						}
 						
 					}
@@ -174,88 +198,51 @@
 						var val = {};
 						if((i==data.x || i == data.x+data.width-1) || 
 							(j==data.y || j==data.y+data.height-1)){
-							val = {
-								val : AppRegistry.ValueMap['wall'],
-								material: 'STONE',
-								solid: true,
-								visibility: 0
-							}
+							val = DungeonUtil.createTile('WALL');
 						}else{
-							val = {
-								val : '`',
-								material: 'EARTH',
-								visibility: 0
-							}
+							val = DungeonUtil.createTile('GROUND');
 						}
 						map[j][i] = val;
 					}			
 				}
-				var entrance = {
-					val : AppRegistry.ValueMap['up_stairs'],
-					material : 'STONE',
-					visibility: 0
-				};
+				var entrance = DungeonUtil.createTile('UP_STAIRS');
 				map[data.entrance.y][data.entrance.x] = entrance;
 
 				for(var i = 0; i < data.doors.length; i++){
 					var door = data.doors[i];
-					map[door.y][door.x] = {
-						val: AppRegistry.ValueMap['door_close'],
-						material: 'STONE',
-						visibility: 0
-					}
+					map[door.y][door.x] = DungeonUtil.createTile('DOOR_CLOSE');
 				}
 			}
 
-			DungeonUtil.renderHallway = function(data, map){		
+			DungeonUtil.renderHallway = function(data, map){
 				switch(data.d){
 					case 'N':
 						for(var i = data.y; i > data.y-data.length; i--){
 							//console.log("NORTH");
-							map[i][data.x] = {
-								val : '`',
-								material: 'EARTH',
-								visibility: 0
-							};
+							map[i][data.x] = DungeonUtil.createTile('GROUND');
 						}
 						break;
 					case 'S':
 						for(var i = data.y; i < data.y+data.length; i++){
 							//console.log("SOUTH");
-							map[i][data.x] = {
-								val: '`',
-								material: 'EARTH',
-								visibility: 0
-							}
+							map[i][data.x] = DungeonUtil.createTile('GROUND');
 						}
 						break;
 					case 'E':
 						for(var i = data.x; i < data.x+data.length; i++){
 							//console.log("EAST");
-							map[data.y][i] = {
-								val: '`',
-								material: 'EARTH',
-								visibility: 0
-							}
+							map[data.y][i] = DungeonUtil.createTile('GROUND');
 						}
 						break;
 					case 'W':
 						for(var i = data.x; i > data.x-data.length; i--){
 							//console.log("WEST");
-							map[data.y][i] = {
-								val: '`',
-								material: 'EARTH',
-								visibility: 0
-							}
+							map[data.y][i] = DungeonUtil.createTile('GROUND');
 						}
 						break;
 				}
 				//if(data.type == 'room'){
-					map[data.y][data.x] = {
-						val: AppRegistry.ValueMap['door_open'],
-						material: 'STONE',
-						visibility: 0
-					}	
+					map[data.y][data.x] = DungeonUtil.createTile('DOOR_OPEN');
 				//}				
 			}
 
@@ -265,40 +252,19 @@
 						var val = {};
 
 						if(i == data.x || i == data.x+data.width-1){
-							val = {
-								val : AppRegistry.ValueMap['wall'],
-								material: 'STONE',
-								solid: true,
-								strength: Math.random(),
-								visibility: 0
-							}
+							val = DungeonUtil.createTile('WALL');
 						}else if(j == data.y || j==data.y+data.height-1){
-							val = {
-								val : AppRegistry.ValueMap['wall'],
-								material: 'STONE',
-								solid: true,
-								strength: Math.random(),
-								visibility: 0
-							}
+							val = DungeonUtil.createTile('WALL');
 						}else{
-							val = {
-								val : '.',
-								material: 'EARTH',
-								pulse : Math.random(),
-								visibility: 0
-							}
+							val = DungeonUtil.createTile('PULSING_GROUND');
 						}						
-						map[j][i] = val;				
+						map[j][i] = val;
 					}
 				}
 
 				for(var i = 0; i < data.doors.length; i++){
 					var door = data.doors[i];
-					map[door.y][door.x] = {
-						val: AppRegistry.ValueMap['door_close'],
-						material: 'STONE',
-						visibility: 0
-					}
+					map[door.y][door.x] = DungeonUtil.createTile('DOOR_CLOSE');
 				}
 			}
 

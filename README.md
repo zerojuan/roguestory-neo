@@ -4,6 +4,8 @@ New Version of Rogue Story
 
 ## Notes
 
+Using fontstruct.com for custom font
+
 ### For angular v1.1.4
 
 Change in L:15462

@@ -191,10 +191,11 @@
 				this.doMove = function(newValue, oldValue){
 					if(!this.map || this.map.length == 0) return;
 
+					console.log("Drawing hero normal...", newValue.row, newValue.col);
 					this.map[newValue.row][newValue.col].object = {
 						material: "HERO_NORMAL",
 						pulse: NaN,
-						val: "A",
+						val: opts.AppRegistry.ValueMap['hero'],
 						visibility: 1
 					};
 
@@ -248,7 +249,8 @@
           canvas: elm[0],
           map: scope.map,
           BaseBoard: BaseBoard,
-          PathUI: PathUI
+          PathUI: PathUI,
+					AppRegistry: AppRegistry
         });
 
 				var _m = GameModel;

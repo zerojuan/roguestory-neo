@@ -5,7 +5,10 @@
 		.factory('LineOfSight', ['DungeonUtil', function(DungeonUtil){
 			var LineOfSight = {};
 
+			LineOfSight.fogIntensity = .2;
+
 			var calculateLine = function(start, end){
+				/*Bresenham's line algorithm*/
 				var points = [];
 				var x0 = start.col;
 				var y0 = start.row;
@@ -71,13 +74,11 @@
 					return;
 				}
 
-				console.log("Doing los");
-
 				//grayout everything
 				for(var i = 0; i < map.length; i++){
 					for(var j = 0; j < map[i].length; j++){
 						if(map[i][j].visibility === 1){
-							map[i][j].visibility = .5;
+							map[i][j].visibility = this.fogIntensity;
 						}
 
 						var point = {
