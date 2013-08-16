@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.services').
+angular.module('rs.services').
 	factory('PathFinder', ['$rootScope', function($rootScope){
 		var PathFinder = {};
 
@@ -143,6 +143,7 @@ angular.module('myApp.services').
 					var current = current.parent;
 					path.push(current.pos);
 				}
+				path.pop();
 				path.reverse();
 
 				return path;

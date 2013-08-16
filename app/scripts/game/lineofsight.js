@@ -1,7 +1,7 @@
 (function(){
 	'use strict';
 
-	angular.module('myApp.gameModule')
+	angular.module('rs.gameModule')
 		.factory('LineOfSight', ['DungeonUtil', function(DungeonUtil){
 			var LineOfSight = {};
 

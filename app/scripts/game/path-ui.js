@@ -1,7 +1,7 @@
 (function(){
 	'use strict';
 
-	angular.module('myApp.gameModule')
+	angular.module('rs.gameModule')
 		.factory('PathUI', ['AppRegistry', function(AppRegistry){
 			var PathUI = function(opts){
 				this.graphics = new createjs.Container();

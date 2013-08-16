@@ -1,9 +1,10 @@
 'use strict';
 
-function HomeController($scope, $http, $location, $timeout, authService, AppRegistry, PathFinder, LineOfSight){
+function HomeController($scope, $http, $location, $timeout, authService, AppRegistry, PathFinder, LineOfSight, MoveManager){
 	$scope.loggedIn = false;
 	$scope.selectedTile = {row: 5, col: 5};
 	$scope.playerPosition = AppRegistry.playerPosition;
+	$scope.timestep = AppRegistry.timestep;
 
 	$http.get('/home').success(function(data){
 		$scope.loggedIn = true;
@@ -19,8 +20,14 @@ function HomeController($scope, $http, $location, $timeout, authService, AppRegi
   		$location.path('/login');
   	});
 
+	$scope.$on('handleBroadcast[timestep]', function(){
+		$scope.timestep = AppRegistry.timestep;
+		$scope.$apply('timestep');
+	})
+
 	$scope.$on('handleBroadcast[playerPosition]', function(){
 		$scope.playerPosition = AppRegistry.playerPosition;
+		LineOfSight.doLOS(AppRegistry.playerPosition, 5, AppRegistry.map);
 		$scope.$apply();
 		console.log("PlayerPosition has changed", $scope.playerPosition);
 	});
@@ -33,35 +40,51 @@ function HomeController($scope, $http, $location, $timeout, authService, AppRegi
 		//Service takes care of identifying the tiles based on the [map] and values
 	});
 
+	$scope.$on('onKeyEvent', function(evt, move){
+		MoveManager.validateMove(move, AppRegistry.map);
+	});
+
 	$scope.$on('onClickedOnMap', function(evt, col, row){
 		$scope.selectedTile.col = col;
 		$scope.selectedTile.row = row;
 
+		var move;
+		if(AppRegistry.map[row][col].val == AppRegistry.ValueMap['door_close']){
+			//check if clicked on closed door
+			move = {type:'action', data: {
+				type: 'door_open',
+				position: {
+					row: row,
+					col: col
+				}
+			}};
+			if(MoveManager.validateMove(move, AppRegistry.map)){
+				MoveManager.executeMove(move, AppRegistry.map);
+			};
+			return;
+		}else if(AppRegistry.map[row][col].val == AppRegistry.ValueMap['door_open']){
+			move = {type:'action', data: {
+				type: 'door_close',
+				position: {
+					row: row,
+					col: col
+				}
+			}};
+			if(MoveManager.validateMove(move, AppRegistry.map)){
+				MoveManager.executeMove(move, AppRegistry.map);
+			};
+			return;
+		}
+
 		if(AppRegistry.playerIsMoving || !AppRegistry.moveList){
-			console.log('Player is Moving: ' + AppRegistry.playerIsMoving + ' or Movelist doesn\'t exist: ' + AppRegistry.moveList);
 			AppRegistry.playerIsMoving = false;
 			return;
 		}
 
-		var currIndex = 0;
-		var doMove = function(){
-			var currMove = AppRegistry.moveList[currIndex];
-			LineOfSight.doLOS(currMove, 5, AppRegistry.map);
-			if(currMove && AppRegistry.playerIsMoving){ //a move exists
-				AppRegistry.prepForBroadcast('playerPosition', currMove);
-				currIndex++;
-				$timeout(doMove, 50);
-			}else{
-				AppRegistry.prepForBroadcast('moveList', null);
-				AppRegistry.prepForBroadcast('playerIsMoving', false);
-				return;
-			}
-		}
+
 
 		AppRegistry.prepForBroadcast('playerIsMoving', true);
-		if(AppRegistry.moveList){
-			doMove();
-		}
+		MoveManager.executeMove({type: 'movelist'});
 
 	});
 
@@ -82,12 +105,8 @@ function HomeController($scope, $http, $location, $timeout, authService, AppRegi
 
 		var path = PathFinder.findPath({row: $scope.playerPosition.row, col: $scope.playerPosition.col},
 												{row: row, col: col}, AppRegistry.map);
-//		if(path){
 			AppRegistry.prepForBroadcast('moveList', path);
 			$scope.$apply();
-//		}else{
-//			AppRegistry.moveList = null;
-//		}
 
 	});
 
@@ -101,4 +120,4 @@ function HomeController($scope, $http, $location, $timeout, authService, AppRegi
 
 	$scope.$on('')
 }
-HomeController.$inject = ['$scope', '$http', '$location', '$timeout', 'authService', 'AppRegistry', 'PathFinder', 'LineOfSight'];
+HomeController.$inject = ['$scope', '$http', '$location', '$timeout', 'authService', 'AppRegistry', 'PathFinder', 'LineOfSight', 'MoveManager'];

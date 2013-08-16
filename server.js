@@ -125,10 +125,10 @@ app.get('/dungeon', GameRoute.getDungeon);
 
 app.post('/auth/logout', UserRoute.logout);
 
-app.listen(process.env.PORT || 3002, function(err){
+app.listen(process.env.PORT || 3030, function(err){
 	if(err){
 		console.log("An error occured ", err);
 		return err;
 	}
-	console.log('Listening to port ' + (process.env.PORT || 3002));
+	console.log('Listening to port ' + (process.env.PORT || 3030));
 });

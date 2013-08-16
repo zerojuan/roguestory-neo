@@ -2,18 +2,7 @@
 (function(){
   'use strict';
 
-  var GameModel = (function(){
-
-    function PrivateGameModel(opts){
-			console.log("HEY I AM THE PRIVATE GAME MODEL");
-
-     
-    }
-
-    return PrivateGameModel;
-  }());
-
-	angular.module('myApp.services')
+	angular.module('rs.services')
 		.factory('GameModel', function(){
 			var GameModel = {};
 
@@ -247,8 +236,8 @@
 
         GameModel.reconstruct({
           canvas: elm[0],
-          map: scope.map,
           BaseBoard: BaseBoard,
+					map: scope.map,
           PathUI: PathUI,
 					AppRegistry: AppRegistry
         });
@@ -268,8 +257,6 @@
 				});
 
 				scope.$watch('playerPosition', function(newValue, oldValue){
-//					console.log("New Value: ", newValue);
-//					console.log("Old Value: ", oldValue);
 					_m.doMove(newValue, oldValue);
 				});
 

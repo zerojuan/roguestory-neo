@@ -16,14 +16,14 @@
 //	return this;
 //}
 
-angular.module('myApp.services', []);
+angular.module('rs.services', []);
 
-angular.module('myApp.gameModule', ['myApp.services']);
+angular.module('rs.gameModule', ['rs.services']);
 
-angular.module('myApp.directives', ['myApp.gameModule','http-auth-interceptor']);
+angular.module('myApp.directives', ['rs.gameModule','http-auth-interceptor']);
 
 // Declare app level module which depends on filters, and services
-angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives']).
+angular.module('myApp', ['myApp.filters', 'rs.services', 'myApp.directives']).
   config(['$routeProvider', function($routeProvider) {    
     $routeProvider.when('/login', {templateUrl: 'views/login.html', controller: LoginController});
     $routeProvider.when('/', {templateUrl: 'views/home.html', controller: HomeController});

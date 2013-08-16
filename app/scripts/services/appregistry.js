@@ -1,7 +1,7 @@
 'use strict';
 
 // Demonstrate how to register services
-angular.module('myApp.services').
+angular.module('rs.services').
 	factory('AppRegistry', ['$rootScope', function($rootScope){
 		var AppRegistry = {};
 
@@ -10,6 +10,7 @@ angular.module('myApp.services').
 			row: 0,
 			col: 0
 		};
+		AppRegistry.timestep = 0;
 		AppRegistry.loggedInUser = null;
 		AppRegistry.ValueMap = {
 			'hero' : 'A',
@@ -29,6 +30,10 @@ angular.module('myApp.services').
 		AppRegistry.moveList = [];
 		AppRegistry.moveIndex = 0;
 
+		AppRegistry.updateTimeStep = function(){
+			AppRegistry.timestep++;
+			AppRegistry.prepForBroadcast('timestep', AppRegistry.timestep);
+		}
 
 		AppRegistry.prepForBroadcast = function(property, msg){
 			console.log('Saving Property: ', property, msg);

@@ -1,7 +1,7 @@
 (function(){
 	'use strict';
 
-	angular.module('myApp.gameModule')
+	angular.module('rs.gameModule')
 		.factory('DungeonUtil', ['AppRegistry', function(AppRegistry){
 			var DungeonUtil = {};
 
