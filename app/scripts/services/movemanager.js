@@ -14,8 +14,8 @@ angular.module('rs.services')
 						return true;
 					}else{
 						var data = move.data;
-						var isAdjacent = Math.abs((AppRegistry.playerPosition.row + AppRegistry.playerPosition.col)
-									- (data.position.row + data.position.col)) == 1;
+						var isAdjacent = Math.abs(AppRegistry.playerPosition.row - data.position.row) <= 1 &&
+							Math.abs(AppRegistry.playerPosition.col - data.position.col) <= 1;
 						switch(data.type){
 							case 'door_open':
 								return isAdjacent;

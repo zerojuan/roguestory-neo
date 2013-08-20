@@ -72,9 +72,11 @@ function HomeController($scope, $http, $location, $timeout, authService, AppRegi
 			}};
 			if(MoveManager.validateMove(move, AppRegistry.map)){
 				MoveManager.executeMove(move, AppRegistry.map);
+				return;
 			};
-			return;
+
 		}
+
 
 		if(AppRegistry.playerIsMoving || !AppRegistry.moveList){
 			AppRegistry.playerIsMoving = false;
