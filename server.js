@@ -28,6 +28,7 @@ passport.use(new LocalStrategy(
 
   	User.findOne({username: username}, function(err, user){
   		if(err){
+  			console.log("Error Here:");
   			return done(null, false, {message: err.message});
   		}
   		if(!user){

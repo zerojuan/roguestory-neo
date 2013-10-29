@@ -73,7 +73,9 @@
 				if(!playerPos){
 					return;
 				}
-
+				if(!map){
+					return;
+				}
 				//grayout everything
 				for(var i = 0; i < map.length; i++){
 					for(var j = 0; j < map[i].length; j++){

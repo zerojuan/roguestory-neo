@@ -28,7 +28,7 @@ function HomeController($scope, $http, $location, $timeout, authService, AppRegi
 	$scope.$on('handleBroadcast[playerPosition]', function(){
 		$scope.playerPosition = AppRegistry.playerPosition;
 		LineOfSight.doLOS(AppRegistry.playerPosition, 5, AppRegistry.map);
-		$scope.$apply();
+		// $scope.$apply();
 		console.log("PlayerPosition has changed", $scope.playerPosition);
 	});
 

@@ -66,10 +66,10 @@
 						var room = GH.makeRoomBasedOnDoor(possibleDoor, dungeonData);					
 
 						if(room){
-							console.log("Room created: ", room);
+							//console.log("Room created: ", room);
 							dungeonData.rooms.push(room);
 							if(currFeature == currRoom){
-								console.log("Possible door pushed to currRoom", possibleDoor, currRoom);
+								//console.log("Possible door pushed to currRoom", possibleDoor, currRoom);
 								currRoom.doors.push(possibleDoor);
 							}
 						}
@@ -77,8 +77,8 @@
 						//make hallway						
 						var hallway = GH.designHallway(possibleDoor, dungeonData);
 						if(hallway){
-							console.log("Hallway created: ", hallway);
-							console.log("Possible door from: ", currFeature);
+							//console.log("Hallway created: ", hallway);
+							//console.log("Possible door from: ", currFeature);
 							dungeonData.hallways.push(hallway);
 						}
 						

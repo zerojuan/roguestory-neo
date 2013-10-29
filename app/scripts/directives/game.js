@@ -27,17 +27,17 @@
 					this.stage = new createjs.Stage(this.canvas);
 					this.stage.autoClear = true;
 					//===== Create Input Listeners =======/
-					this.stage.onMouseUp = function(evt){
+					this.stage.addEventListener("stagemouseup", function(evt){
 						that.handleMouseUp(evt);
-					}
+					});
 
-					this.stage.onMouseMove = function(evt){
+					this.stage.addEventListener("stagemousemove", function(evt){
 						that.handleMouseMove(evt);
-					}
+					});
 
-					this.stage.onMouseDown = function(evt){
+					this.stage.addEventListener("stagemousedown", function(evt){
 						that.handleMouseDown(evt);
-					}
+					});
 				}
 				//=====================================/
 
@@ -73,10 +73,11 @@
 
 				this.loader = new createjs.LoadQueue(false);
 				this.loader.useXHR = false;
-				this.loader.onFileLoad = function(evt){
+				this.loader.addEventListener("fileload", function(evt){
+					console.log("File is loaded");
 					that.assets.push(evt);
-				}
-				this.loader.onComplete = function(evt){
+				});
+				this.loader.addEventListener("complete", function(evt){
 					console.log("Complete Loader:", that.assets);
 					for(var i = 0; i < that.assets.length; i++){
 						var item = that.assets[i].item;
@@ -99,7 +100,7 @@
 					that.base.x = that.offset.x;
 					that.base.y = that.offset.y;
 					that.stage.addChild(that.base, that.pathLayer.graphics, that.tileDown);
-				}
+				});
 
 				this.loader.loadManifest(assetManifest);
 
@@ -145,6 +146,7 @@
 						this.tileDown.alpha = 0;
 					}
 
+					console.log("Mouse is moving: ", mouseX, mouseY);
 
 					//createjs.Tween.get(this.tileDown, {override: true}).to({alpha: .6}, 500);
 				}
@@ -230,35 +232,35 @@
       '</canvas>',
       scope : {
         "map" : "=map",
-				"playerPosition" : "=playerPosition"
+		"playerPosition" : "=playerPosition"
       },
       link : function(scope, elm, attrs){
 
         GameModel.reconstruct({
-          canvas: elm[0],
-          BaseBoard: BaseBoard,
-					map: scope.map,
-          PathUI: PathUI,
-					AppRegistry: AppRegistry
+          	canvas: elm[0],
+          	BaseBoard: BaseBoard,
+			map: scope.map,
+          	PathUI: PathUI,
+			AppRegistry: AppRegistry
         });
 
-				var _m = GameModel;
+		var _m = GameModel;
 
         _m.onClickedOnMap = function(x, y){
           scope.$emit('onClickedOnMap', x, y);
         }
 
-				_m.onHoverMapChanged = function(x, y){
-					scope.$emit('onMouseOverMapChanged', x, y);
-				}
+		_m.onHoverMapChanged = function(x, y){
+			scope.$emit('onMouseOverMapChanged', x, y);
+		}
 
-				scope.$on('handleBroadcast[moveList]', function(){
-					_m.renderPath(AppRegistry.moveList);
-				});
+		scope.$on('handleBroadcast[moveList]', function(){
+			_m.renderPath(AppRegistry.moveList);
+		});
 
-				scope.$watch('playerPosition', function(newValue, oldValue){
-					_m.doMove(newValue, oldValue);
-				});
+		scope.$watch('playerPosition', function(newValue, oldValue){
+			_m.doMove(newValue, oldValue);
+		});
 
         elm.width(window.innerWidth);
         elm.height(window.innerHeight);
