@@ -18,6 +18,7 @@
     "grunt-autoprefixer": "~0.4.0"
   },
   "dependencies": {
+    "bower": "0.6.x",
     "express": "3.4.4",
     "request": "2.27.0",
     "less-middleware": "0.1.12",
@@ -34,7 +35,7 @@
   "scripts": {
     "start": "node server.js",
     "test": "mocha test/server/ -u tdd",
-    "postinstall": "bower install && grunt build"
+    "postinstall": "bower install"
   },
   "engines": {
     "node": "0.10.x"
