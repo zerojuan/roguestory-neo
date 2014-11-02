@@ -12,7 +12,6 @@
 				tiles: [],
 				possibles: [],
 				initialize: function(opts){
-					console.log("I AM INITIALIZING MY PATHS");
 					//create a few tiles
 					var that = this;
 

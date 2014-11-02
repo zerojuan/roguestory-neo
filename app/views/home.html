@@ -8,11 +8,15 @@
 		{{user.username}}<a ng-click="logout()">Logout</a>
 			<p>Step:{{timestep}}</p>
 		</div>
+		<div class="desc">
+			<p>{{tileDesc}}</p>	
+		</div>
 	</div>
 	<div ng-controller="DungeonController" on-keyup tabindex="0">
 		<game
 			map="map"
 			player-position="playerPosition">
 		</game>
-	</div>	
+	</div>
+
 </div>

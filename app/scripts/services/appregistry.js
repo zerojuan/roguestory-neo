@@ -31,6 +31,7 @@ angular.module('rs.services').
 		AppRegistry.moveIndex = 0;
 
 		AppRegistry.updateTimeStep = function(){
+			console.log("Update the timestep");
 			AppRegistry.timestep++;
 			AppRegistry.prepForBroadcast('timestep', AppRegistry.timestep);
 		}

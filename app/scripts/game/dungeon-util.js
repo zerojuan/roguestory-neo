@@ -52,7 +52,6 @@
 						tile.val = AppRegistry.ValueMap['stone'];
 						return tile;
 				}
-				console.log('FAAAAILLLLED');
 			}
 
 			DungeonUtil.removeDoubleDoors = function(map){

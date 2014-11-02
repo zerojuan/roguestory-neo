@@ -11,6 +11,7 @@ angular.module('rs.services')
 			switch(move.type){
 				case 'action':
 					if(move.data == 'sleep'){
+						console.log("Sleeping");
 						return true;
 					}else{
 						var data = move.data;
@@ -33,11 +34,13 @@ angular.module('rs.services')
 
 
 		MoveManager.executeMove = function(move, map){
+			console.log("Executing move");
 			//check what kind of move?
 			switch(move.type){
 				case 'action':
 					//check what type it is
 					MoveManager.doAction(move, map);
+					console.log("Do Action>?");
 					AppRegistry.updateTimeStep();
 					break;
 				case 'movelist':

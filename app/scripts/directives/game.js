@@ -39,8 +39,8 @@
 						that.handleMouseDown(evt);
 					});
 				}
-				//=====================================/
 
+				//=====================================/
 				//Graphical offset of the tilemap render
 				this.offset = {
 					x: 13,
@@ -146,8 +146,6 @@
 						this.tileDown.alpha = 0;
 					}
 
-					console.log("Mouse is moving: ", mouseX, mouseY);
-
 					//createjs.Tween.get(this.tileDown, {override: true}).to({alpha: .6}, 500);
 				}
 
@@ -228,7 +226,7 @@
       restrict: 'E',
       transclude : true,
       replace: true,
-      template : '<canvas ng-transclude>Test'+
+      template : '<canvas ng-transclude>'+
       '</canvas>',
       scope : {
         "map" : "=map",

@@ -12,6 +12,7 @@
     "PreloadJS": "latest",
     "angular": "~1.0.6",
     "TweenJS": "latest",
-    "angular-http-auth": "latest"
+    "angular-http-auth": "latest",
+    "socket.io": "~0.9.15"
   }
 }
