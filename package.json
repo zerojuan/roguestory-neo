@@ -34,8 +34,7 @@
   ],
   "scripts": {
     "start": "node server.js",
-    "test": "mocha test/server/ -u tdd",
-    "postinstall": "bower install"
+    "test": "mocha test/server/ -u tdd"
   },
   "engines": {
     "node": "0.10.x"

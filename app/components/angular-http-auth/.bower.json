@@ -1,0 +1,13 @@
+{
+  "name": "angular-http-auth",
+  "homepage": "https://github.com/witoldsz/angular-http-auth",
+  "_release": "e8e7e6913e",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "e8e7e6913ec0b2d330b1f7c90586fdd4b1bb83bd"
+  },
+  "_source": "git://github.com/witoldsz/angular-http-auth.git",
+  "_target": "*",
+  "_originalSource": "angular-http-auth"
+}
