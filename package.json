@@ -33,7 +33,8 @@
   ],
   "scripts": {
     "start": "node server.js",
-    "test": "mocha test/server/ -u tdd"
+    "test": "mocha test/server/ -u tdd",
+    "postinstall": "bower install && grunt build"
   },
   "engines": {
     "node": "0.10.x"
